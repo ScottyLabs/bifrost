@@ -1,6 +1,11 @@
 {
 	"devDependencies": {
 		"@commitlint/cli": "^19.5.0",
-		"@nxrocks/nx-spring-boot": "^10.2.6"
+		"@commitlint/config-conventional": "^19.5.0",
+		"@nxrocks/nx-spring-boot": "^10.2.6",
+		"husky": "^9.1.6"
+	},
+	"scripts": {
+		"prepare": "husky"
 	}
 }
