@@ -6,6 +6,7 @@
 		"husky": "^9.1.6"
 	},
 	"scripts": {
-		"prepare": "husky"
+		"prepare": "husky",
+		"preinstall": "npx only-allow pnpm"
 	}
 }
