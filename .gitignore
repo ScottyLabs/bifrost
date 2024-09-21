@@ -2,3 +2,7 @@ node_modules/
 .nx/installation
 .nx/cache
 .nx/workspace-data
+
+# Next.js
+.next
+out
