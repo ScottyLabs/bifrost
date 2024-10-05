@@ -1,0 +1,22 @@
+{
+  "name": "@bifrost/infra",
+  "dependencies": {
+    "@pulumi/pulumi": "latest"
+  },
+  "scripts": {
+    "deploy": "pulumi up --stack dev",
+    "destroy": "pulumi destroy --stack dev",
+    "refresh": "pulumi refresh --stack dev"
+  },
+  "nx": {
+    "targets": {
+      "deploy": {
+        "cache": true,
+        "dependsOn": [
+          "build",
+          "website:generate"
+        ]
+      }
+    }
+  }
+}
