@@ -1,5 +1,5 @@
 export default {
-  displayName: 'next',
+  displayName: 'dashboard',
   preset: '../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
