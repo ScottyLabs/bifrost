@@ -1,3 +1,11 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "nrwl.angular-console",
+    "mathiasfrohlich.kotlin",
+    "fwcd.kotlin",
+    "naco-siren.gradle-language",
+    "vscjava.vscode-gradle"
+  ]
 }
