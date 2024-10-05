@@ -1,4 +1,6 @@
 {
+  "name": "bifrost",
+  "version": "0.0.0",
 	"scripts": {
 		"prepare": "husky",
 		"preinstall": "npx only-allow pnpm"
