@@ -23,7 +23,7 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
-    "../next/.next/types/**/*.ts",
+    ".next/types/**/*.ts",
     "../dist/next/.next/types/**/*.ts",
     "next-env.d.ts"
   ],
