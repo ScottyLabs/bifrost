@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "prepare": "husky",
+    "format": "prettier . --write",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
