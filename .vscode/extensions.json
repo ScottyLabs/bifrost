@@ -3,6 +3,7 @@
     // Linting and styling
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig",
     // Monorepo management
     "nrwl.angular-console",
     // Backend development
@@ -12,6 +13,6 @@
     "vscjava.vscode-gradle",
     // Pulumi extensions
     "pulumi.pulumi-vscode-tools",
-    "pulumi.pulumi-lsp-client"
+    "pulumi.pulumi-lsp-client",
   ]
 }
