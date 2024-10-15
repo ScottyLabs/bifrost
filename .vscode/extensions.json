@@ -1,11 +1,17 @@
 {
   "recommendations": [
+    // Linting and styling
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
+    // Monorepo management
     "nrwl.angular-console",
+    // Backend development
     "mathiasfrohlich.kotlin",
     "fwcd.kotlin",
     "naco-siren.gradle-language",
-    "vscjava.vscode-gradle"
+    "vscjava.vscode-gradle",
+    // Pulumi extensions
+    "pulumi.pulumi-vscode-tools",
+    "pulumi.pulumi-lsp-client"
   ]
 }
