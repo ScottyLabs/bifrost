@@ -1,1 +1,23 @@
-["^ ","~:classpath",["~#set",[]],"~:project-hash","","~:project-root","/Users/aravbhardwaj/Documents/hackboard","~:kondo-config-hash","22015976f63fb8499837f0f373b7d1812c30b74f4ed613ce1516dd267e5244cc","~:dependency-scheme","jar","~:analysis",null,"~:analysis-checksums",["^ "],"~:project-analysis-type","~:project-and-full-dependencies","~:version",12,"~:stubs-generation-namespaces",["^1",[]]]
+[
+  "^ ",
+  "~:classpath",
+  ["~#set", []],
+  "~:project-hash",
+  "",
+  "~:project-root",
+  "/Users/aravbhardwaj/Documents/hackboard",
+  "~:kondo-config-hash",
+  "22015976f63fb8499837f0f373b7d1812c30b74f4ed613ce1516dd267e5244cc",
+  "~:dependency-scheme",
+  "jar",
+  "~:analysis",
+  null,
+  "~:analysis-checksums",
+  ["^ "],
+  "~:project-analysis-type",
+  "~:project-and-full-dependencies",
+  "~:version",
+  12,
+  "~:stubs-generation-namespaces",
+  ["^1", []]
+]
