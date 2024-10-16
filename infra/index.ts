@@ -43,10 +43,9 @@ const cluster = new aws.rds.Cluster("bifrost-cluster", {
   vpcSecurityGroupIds: [securityGroup.id],
   dbSubnetGroupName: subnet.then((s) => s.name),
   scalingConfiguration: {
-    autoPause: false, // Set to true to enable auto pausing
-    maxCapacity: 8, // Adjust based on your needs
-    minCapacity: 2,
-    secondsUntilAutoPause: 300, // If autoPause is true
+    autoPause: false,
+    maxCapacity: 8,
+    minCapacity: 2, // lowest possible value for PostgreSQL
   },
   enableHttpEndpoint: true, // Enable Data API
 });
