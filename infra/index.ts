@@ -1,35 +1,59 @@
+import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import * as dotenv from "dotenv";
-import { z } from "zod";
 
-// Validate environment variables
-dotenv.config();
+const config = new pulumi.Config();
 
-const envSchema = z.object({
-  DB_USERNAME: z.string(),
-  DB_PASSWORD: z.string(),
+const dbName = config.get("dbName") || "bifrost";
+const dbUsername = config.require("dbUsername");
+const dbPassword = config.requireSecret("dbPassword");
+
+// Create an Aurora Serverless v2 cluster with Data API
+const vpc = aws.ec2.getVpc({ default: true });
+const subnet = aws.rds.getSubnetGroup({ name: "default" });
+
+const securityGroup = new aws.ec2.SecurityGroup("aurora-sg", {
+  vpcId: vpc.then((v) => v.id),
+  description: "Allow PostgreSQL access",
+  ingress: [
+    {
+      protocol: "tcp",
+      fromPort: 5432, // default port for PostgreSQL
+      toPort: 5432,
+      cidrBlocks: ["0.0.0.0/0"], // TODO: restrict for production
+    },
+  ],
+  egress: [
+    // allow all outbound traffic
+    {
+      protocol: "-1", // all protocols
+      fromPort: 0,
+      toPort: 0,
+      cidrBlocks: ["0.0.0.0/0"], // all destinations
+    },
+  ],
 });
 
-const env = envSchema.safeParse(process.env);
-
-if (!env.success) {
-    console.error("Invalid environment variables:", env.error.format());
-    process.exit(1);
-}
-
-// Create a postgres RDS instance
-const db = new aws.rds.Instance("bifrost-db", {
-  engine: "postgres",
-  instanceClass: aws.rds.InstanceType.T3_Micro,
-  allocatedStorage: 20,
-  dbName: "bifrost",
-  username: env.data.DB_USERNAME,
-  password: env.data.DB_PASSWORD,
-  skipFinalSnapshot: true,
-  publiclyAccessible: true,
+const cluster = new aws.rds.Cluster("bifrost-cluster", {
+  engine: "aurora-postgresql",
+  engineMode: "serverless",
+  engineVersion: "13.7",
+  masterUsername: dbUsername,
+  masterPassword: dbPassword,
+  databaseName: dbName,
+  vpcSecurityGroupIds: [securityGroup.id],
+  dbSubnetGroupName: subnet.then((s) => s.name),
+  scalingConfiguration: {
+    autoPause: false, // Set to true to enable auto pausing
+    maxCapacity: 8, // Adjust based on your needs
+    minCapacity: 2,
+    secondsUntilAutoPause: 300, // If autoPause is true
+  },
+  enableHttpEndpoint: true, // Enable Data API
 });
 
-export const dbEndpoint = db.endpoint;
+export const clusterArn = cluster.arn;
+export const clusterEndpoint = cluster.endpoint;
+export const databaseNameOutput = cluster.databaseName;
 
 // Create a UserPool and client for hackathon hosts
 const hostUserPool = new aws.cognito.UserPool("hackathon-hosts", {
@@ -45,7 +69,7 @@ const hostUserPoolClient = new aws.cognito.UserPoolClient(
   {
     userPoolId: hostUserPool.id,
     generateSecret: false,
-  }
+  },
 );
 
 export const hostUserPoolId = hostUserPool.id;
