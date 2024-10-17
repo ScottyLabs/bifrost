@@ -3,7 +3,7 @@ import * as aws from "@pulumi/aws";
 
 const config = new pulumi.Config();
 
-const dbName = config.get("dbName") || "bifrost";
+const dbName = config.get("dbName");
 const dbUsername = config.require("dbUsername");
 const dbPassword = config.requireSecret("dbPassword");
 
@@ -33,6 +33,18 @@ const securityGroup = new aws.ec2.SecurityGroup("aurora-sg", {
   ],
 });
 
+const dbSecret = new aws.secretsmanager.Secret("dbSecret", {
+  description: "Secrets for Aurora DB",
+});
+
+new aws.secretsmanager.SecretVersion("dbSecretVersion", {
+  secretId: dbSecret.id,
+  secretString: pulumi.interpolate`{
+      "username": "${dbUsername}",
+      "password": "${dbPassword}"
+  }`,
+});
+
 const cluster = new aws.rds.Cluster("bifrost-cluster", {
   engine: "aurora-postgresql",
   engineMode: "serverless",
@@ -51,8 +63,9 @@ const cluster = new aws.rds.Cluster("bifrost-cluster", {
 });
 
 export const clusterArn = cluster.arn;
+export const secretArn = dbSecret.arn;
 export const clusterEndpoint = cluster.endpoint;
-export const databaseNameOutput = cluster.databaseName;
+export const databaseName = cluster.databaseName;
 
 // Create a UserPool and client for hackathon hosts
 const hostUserPool = new aws.cognito.UserPool("hackathon-hosts", {
@@ -71,5 +84,5 @@ const hostUserPoolClient = new aws.cognito.UserPoolClient(
   },
 );
 
-export const hostUserPoolId = hostUserPool.id;
-export const hostUserPoolClientId = hostUserPoolClient.id;
+export const poolId = hostUserPool.id;
+export const poolClientId = hostUserPoolClient.id;
