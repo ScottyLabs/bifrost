@@ -1,5 +1,5 @@
-name: infra
-description: todo
+name: Bifrost
+description: Infrastructure for Bifrost
 runtime:
   name: nodejs
   options:
@@ -8,3 +8,4 @@ config:
   pulumi:tags:
     value:
       pulumi:template: typescript
+
