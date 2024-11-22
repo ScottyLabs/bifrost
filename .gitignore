@@ -7,3 +7,5 @@ Pulumi.dev.yaml
 # Next.js
 .next
 out
+
+vite.config.*.timestamp*
