@@ -4,8 +4,8 @@ node_modules/
 .nx/workspace-data
 Pulumi.dev.yaml
 
-# Next.js
 .next
 out
+dist
 
 vite.config.*.timestamp*
