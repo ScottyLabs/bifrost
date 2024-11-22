@@ -4,13 +4,21 @@
   "sourceRoot": "landing/src",
   "projectType": "application",
   "tags": [],
-  "// targets": "to see all targets run: nx show project landing --web",
   "targets": {
     "build": {
-      "executor": "@nrwl/vite:build",
-      "outputs": ["dist/apps/landing"],
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/landing"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
       }
     }
   }
