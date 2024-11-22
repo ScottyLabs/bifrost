@@ -1,0 +1,27 @@
+package com.scottylabs.auth.config.security
+
+import com.scottylabs.auth.config.properties.AuthProperties
+import com.scottylabs.auth.service.ClientService
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
+
+@Configuration
+class AuthorizationServerConfig(
+  private val authProperties: AuthProperties,
+  private val clientService: ClientService,
+  private val keyConfig: KeyConfig
+) {
+  @Bean
+  fun authorizationServerSettings(): AuthorizationServerSettings {
+    return AuthorizationServerSettings.builder()
+      .issuer(authProperties.issuerUri)
+      .build()
+  }
+
+  @Bean
+  fun registeredClientRepository(): RegisteredClientRepository {
+    return clientService.createRegisteredClientRepository()
+  }
+}

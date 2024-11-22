@@ -1,11 +1,11 @@
-package com.scottylabs.demo
+package com.scottylabs.resource
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BackendApplication
+class ResourceServerApplication
 
 fun main(args: Array<String>) {
-	runApplication<BackendApplication>(*args)
+  runApplication<ResourceServerApplication>(*args)
 }
