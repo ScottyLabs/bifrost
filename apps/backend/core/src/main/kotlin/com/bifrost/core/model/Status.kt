@@ -1,4 +1,4 @@
-package com.scottylabs.resource.domain.model
+package com.bifrost.core.model
 
 enum class Status {
   UNVERIFIED,

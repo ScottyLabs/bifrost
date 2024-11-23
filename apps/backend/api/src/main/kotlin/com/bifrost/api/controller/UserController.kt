@@ -1,9 +1,7 @@
-package com.bifrost.resource.web
+package com.bifrost.api.controller
 
-import com.bifrost.resource.security.SecurityUtils
-import com.scottylabs.resource.domain.model.User
-import com.scottylabs.resource.exception.ResourceNotFoundException
-import com.scottylabs.resource.service.UserService
+import com.bifrost.core.model.User
+import com.bifrost.core.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -19,7 +17,7 @@ import java.util.*
 @Tag(name = "Users")
 class UserController(
   private val userService: UserService,
-  private val securityUtils: SecurityUtils  // Inject security utilities
+//  private val securityUtils: SecurityUtils  // Inject security utilities
 ) {
 
   companion object {
@@ -33,8 +31,7 @@ class UserController(
   @GetMapping("/{id}")
   @PreAuthorize(SELF_OR_ADMIN_AUTH)
   fun getUser(@PathVariable id: UUID): ResponseEntity<User> =
-    userService.findById(id)?.let { ResponseEntity.ok(it) }
-      ?: ResponseEntity.notFound().build()
+    userService.findById(id).let { ResponseEntity.ok(it) }
 
   @PostMapping
   @PreAuthorize("@securityUtils.hasRole('$ADMIN_ROLE')")
@@ -52,17 +49,17 @@ class UserController(
       return ResponseEntity.badRequest().build()
     }
 
-    return userService.findById(id)?.let {
+    return userService.findById(id).let {
       ResponseEntity.ok(userService.update(user))
-    } ?: ResponseEntity.notFound().build()
+    }
   }
 
   @DeleteMapping("/{id}")
   @PreAuthorize(SELF_OR_ADMIN_AUTH)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   fun deleteUser(@PathVariable id: UUID) {
-    userService.findById(id)?.let {
+    userService.findById(id).let {
       userService.delete(id)
-    } ?: throw ResourceNotFoundException("User not found with id: $id")
+    }
   }
 }

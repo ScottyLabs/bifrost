@@ -1,4 +1,4 @@
-package com.scottylabs.resource.domain.model
+package com.bifrost.core.model
 
 import jakarta.persistence.*
 import java.time.LocalDateTime

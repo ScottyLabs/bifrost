@@ -1,4 +1,4 @@
-package com.scottylabs.auth.config.properties
+package com.bifrost.auth.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.security.oauth2.core.oidc.OidcScopes

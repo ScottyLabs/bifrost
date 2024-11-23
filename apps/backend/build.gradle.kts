@@ -7,7 +7,7 @@ plugins {
 }
 
 allprojects {
-  group = "com.scottylabs"
+  group = "com.bifrost"
   version = "0.0.1-SNAPSHOT"
 
   repositories {

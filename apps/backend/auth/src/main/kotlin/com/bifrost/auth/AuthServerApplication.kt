@@ -1,12 +1,12 @@
 package com.bifrost.auth
 
-import com.scottylabs.auth.config.properties.AuthProperties
+import com.bifrost.auth.config.properties.AuthProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 
 @SpringBootApplication(
-  scanBasePackages = ["com.scottylabs.auth"]
+  scanBasePackages = ["com.bifrost.auth"]
 )
 @EnableConfigurationProperties(AuthProperties::class)
 class AuthServerApplication

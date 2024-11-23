@@ -1,4 +1,4 @@
-package com.scottylabs.auth.config.security
+package com.bifrost.auth.config.security
 
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey

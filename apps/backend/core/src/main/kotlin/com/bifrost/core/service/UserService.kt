@@ -1,16 +1,18 @@
-package com.scottylabs.resource.service
+package com.bifrost.core.service
 
-import com.scottylabs.resource.domain.model.User
-import com.scottylabs.resource.repository.UserRepository
+import com.bifrost.core.model.User
+import com.bifrost.core.repository.UserRepository
+import jakarta.transaction.Transactional
+
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+
 import java.util.*
 
 @Service
 class UserService(
   private val userRepository: UserRepository
 ) {
-  fun findById(id: UUID): User? = userRepository.findById(id).orElse(null)
+  fun findById(id: UUID): User = userRepository.findById(id).orElse(null)
 
   fun findByEmail(email: String): User? = userRepository.findByEmail(email)
 

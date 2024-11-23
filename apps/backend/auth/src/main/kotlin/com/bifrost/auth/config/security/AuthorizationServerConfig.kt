@@ -1,6 +1,6 @@
-package com.scottylabs.auth.config.security
+package com.bifrost.auth.config.security
 
-import com.scottylabs.auth.config.properties.AuthProperties
+import com.bifrost.auth.config.properties.AuthProperties
 import com.bifrost.auth.service.ClientService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,4 +1,4 @@
-package com.scottylabs.resource.exception
+package com.bifrost.core.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
