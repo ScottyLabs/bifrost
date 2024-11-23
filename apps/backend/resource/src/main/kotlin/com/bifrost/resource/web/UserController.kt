@@ -1,8 +1,8 @@
-package com.scottylabs.resource.web
+package com.bifrost.resource.web
 
+import com.bifrost.resource.security.SecurityUtils
 import com.scottylabs.resource.domain.model.User
 import com.scottylabs.resource.exception.ResourceNotFoundException
-import com.bifrost.resource.security.SecurityUtils
 import com.scottylabs.resource.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -25,7 +25,7 @@ class UserController(
   companion object {
     const val ADMIN_ROLE = "ROLE_ADMIN"
     private const val SELF_OR_ADMIN_AUTH = """
-            @securityUtils.hasRole('${ADMIN_ROLE}') or
+            @securityUtils.hasRole('$ADMIN_ROLE') or
             @securityUtils.isResourceOwner(#id)
         """
   }
@@ -37,7 +37,7 @@ class UserController(
       ?: ResponseEntity.notFound().build()
 
   @PostMapping
-  @PreAuthorize("@securityUtils.hasRole('${ADMIN_ROLE}')")
+  @PreAuthorize("@securityUtils.hasRole('$ADMIN_ROLE')")
   @ResponseStatus(HttpStatus.CREATED)
   fun createUser(@Valid @RequestBody user: User): User =
     userService.create(user)
