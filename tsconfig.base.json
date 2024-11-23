@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@bifrost/lib/*": ["packages/lib/src/*"],
+      "@bifrost/ui/*": ["packages/ui/src/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

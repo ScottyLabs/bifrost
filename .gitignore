@@ -9,3 +9,9 @@ out
 dist
 
 vite.config.*.timestamp*
+
+.env
+.env.local
+.env.development
+.env.test
+.env.production
