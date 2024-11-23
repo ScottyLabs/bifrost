@@ -1,4 +1,4 @@
-package com.scottylabs.resource.security
+package com.bifrost.resource.security
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

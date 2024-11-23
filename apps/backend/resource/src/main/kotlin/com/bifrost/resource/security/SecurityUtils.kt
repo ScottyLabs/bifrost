@@ -1,8 +1,10 @@
-package com.scottylabs.resource.security
+package com.bifrost.resource.security
 
+import com.scottylabs.resource.security.UserPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import java.util.*
+import kotlin.collections.any
 
 @Component
 class SecurityUtils {

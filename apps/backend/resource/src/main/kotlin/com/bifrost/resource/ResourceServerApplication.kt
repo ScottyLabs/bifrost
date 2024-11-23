@@ -1,4 +1,4 @@
-package com.scottylabs.resource
+package com.bifrost.resource
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

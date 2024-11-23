@@ -2,7 +2,7 @@ package com.scottylabs.resource.web
 
 import com.scottylabs.resource.domain.model.User
 import com.scottylabs.resource.exception.ResourceNotFoundException
-import com.scottylabs.resource.security.SecurityUtils
+import com.bifrost.resource.security.SecurityUtils
 import com.scottylabs.resource.service.UserService
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
