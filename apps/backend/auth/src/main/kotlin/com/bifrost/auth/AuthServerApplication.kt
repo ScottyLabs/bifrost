@@ -1,4 +1,4 @@
-package com.scottylabs.auth
+package com.bifrost.auth
 
 import com.scottylabs.auth.config.properties.AuthProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication

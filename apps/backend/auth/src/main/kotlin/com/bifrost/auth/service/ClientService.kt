@@ -1,4 +1,4 @@
-package com.scottylabs.auth.service
+package com.bifrost.auth.service
 
 import com.scottylabs.auth.config.properties.AuthProperties
 import com.scottylabs.auth.config.properties.ClientConfig
@@ -13,6 +13,10 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings
 import org.springframework.stereotype.Service
 import java.util.*
+import kotlin.apply
+import kotlin.collections.forEach
+import kotlin.collections.map
+import kotlin.jvm.java
 
 @Service
 class ClientService(private val authProperties: AuthProperties, private val passwordEncoder: PasswordEncoder) {

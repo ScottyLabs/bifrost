@@ -1,7 +1,7 @@
 package com.scottylabs.auth.config.security
 
 import com.scottylabs.auth.config.properties.AuthProperties
-import com.scottylabs.auth.service.ClientService
+import com.bifrost.auth.service.ClientService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
