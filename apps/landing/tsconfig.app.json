@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true,,
-    "outDir": "dist/out-tsc",
+    "composite": true,
     "types": [
       "node",
       "@nx/react/typings/cssmodule.d.ts",

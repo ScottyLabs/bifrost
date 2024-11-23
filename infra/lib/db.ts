@@ -1,9 +1,9 @@
-import aws from '@pulumi/aws';
-import pulumi from '@pulumi/pulumi';
-import { vpc, vpcCidrBlocks } from './vpc';
+import aws from "@pulumi/aws";
+import pulumi from "@pulumi/pulumi";
+import { vpc, vpcCidrBlocks } from "./vpc";
 
 const cfg = new pulumi.Config();
-const allowedListArray = cfg.require('ALLOWED_IP_LIST').split(',');
+const allowedListArray = cfg.require("ALLOWED_IP_LIST").split(",");
 
 type DbInstanceArgs = {
   username: string;
@@ -26,15 +26,15 @@ export class DbInstance extends pulumi.ComponentResource {
   constructor(
     name: string,
     args: DbInstanceArgs,
-    opts?: pulumi.ComponentResourceOptions
+    opts?: pulumi.ComponentResourceOptions,
   ) {
-    super('custom:db:DbInstance', name, {}, opts);
+    super("custom:db:DbInstance", name, {}, opts);
 
     const dbSecurityGroup = new aws.ec2.SecurityGroup(`${name}-db`, {
       vpcId: vpc.vpcId,
       ingress: [
         {
-          protocol: 'tcp',
+          protocol: "tcp",
           fromPort: 5432,
           toPort: 5432,
           cidrBlocks: [vpcCidrBlocks, ...allowedListArray],
@@ -49,15 +49,15 @@ export class DbInstance extends pulumi.ComponentResource {
     const dbParameterGroup = new aws.rds.ParameterGroup(
       `${name}-db-parameter-group`,
       {
-        family: 'postgres15',
+        family: "postgres15",
         parameters: [
           {
-            name: 'rds.logical_replication',
-            value: '1',
-            applyMethod: 'pending-reboot',
+            name: "rds.logical_replication",
+            value: "1",
+            applyMethod: "pending-reboot",
           },
         ],
-      }
+      },
     );
 
     this.dbInstance = new aws.rds.Instance(name, {

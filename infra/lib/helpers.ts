@@ -1,4 +1,4 @@
-import * as pulumi from '@pulumi/pulumi';
+import * as pulumi from "@pulumi/pulumi";
 
 const stack = pulumi.getStack();
 
