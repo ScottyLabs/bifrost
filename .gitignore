@@ -15,3 +15,8 @@ vite.config.*.timestamp*
 .env.development
 .env.test
 .env.production
+
+.DS_Store
+
+.vscode/
+.idea/
