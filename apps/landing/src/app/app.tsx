@@ -5,7 +5,7 @@ import { Theme } from "../components/theme";
 
 export function App() {
   return (
-    <div className="font-sfpro bg-black text-white">
+    <div className="font-sfpro bg-gradient text-white">
       <Header />
       <Hero />
       <Theme />
