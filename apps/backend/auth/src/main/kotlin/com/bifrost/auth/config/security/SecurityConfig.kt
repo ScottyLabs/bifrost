@@ -6,16 +6,16 @@ import org.springframework.core.annotation.Order
 import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.provisioning.JdbcUserDetailsManager
+import org.springframework.security.provisioning.UserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.web.cors.CorsConfigurationSource
+import javax.sql.DataSource
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +29,7 @@ class SecurityConfig(
     OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http)
 
     http.getConfigurer(OAuth2AuthorizationServerConfigurer::class.java)
-      .oidc(withDefaults())    // Enable OIDC
+      .oidc(withDefaults())
 
     http
       .cors(withDefaults())
@@ -51,36 +51,47 @@ class SecurityConfig(
         authorize
           .requestMatchers(
             "/login",
+            "/register",
+            "/css/**",
+            "/images/**",
+            "/error",
             "/.well-known/openid-configuration",
+            "/oauth2/authorize",
             "/oauth2/jwks",
-            "/oauth2/token"
+            "/oauth2/token",
+            "/favicon.ico"
           ).permitAll()
           .anyRequest().authenticated()
       }
-      .formLogin(withDefaults())
+      .formLogin { form ->
+        form
+          .loginPage("/login")
+          .permitAll()
+      }
+      .logout { logout ->
+        logout.permitAll()
+      }
+      .cors { cors ->
+        cors.configurationSource(corsConfigurationSource)
+      }
+      .csrf { csrf ->
+        csrf.ignoringRequestMatchers(
+          "/oauth2/token",
+          "/login",
+          "/register"
+        )
+      }
 
     return http.build()
   }
 
-  // For demo purposes - in production you'd want a real user database
   @Bean
-  fun userDetailsService(): UserDetailsService {
-    val userBuilder = User.builder()
-      .passwordEncoder { password -> passwordEncoder().encode(password) }
-
-    val defaultUser = userBuilder
-      .username("user")
-      .password("password")
-      .roles("USER")
-      .build()
-
-    val admin = userBuilder
-      .username("admin")
-      .password("admin")
-      .roles("USER", "ADMIN")
-      .build()
-
-    return InMemoryUserDetailsManager(defaultUser, admin)
+  fun userDetailsManager(dataSource: DataSource): UserDetailsManager {
+    // This will automatically create the default Spring Security user tables if they don't exist
+    val manager = JdbcUserDetailsManager(dataSource)
+    manager.usersByUsernameQuery = "select username, password, enabled from users where username = ?"
+    manager.setAuthoritiesByUsernameQuery("select username, authority from authorities where username = ?")
+    return manager
   }
 
   @Bean

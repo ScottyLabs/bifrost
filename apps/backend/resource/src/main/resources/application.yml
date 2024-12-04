@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000  # Auth server URL
+          # jwk-set-uri: http://localhost:9000/oauth2/jwks # If needed
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resource
+    username: bifrost_user
+    password: bifrost_password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      javax:
+        persistence:
+          schema-generation.scripts.action: create
+          schema-generation.scripts.create-target: schema.sql
+    show-sql: true
+
+  springdoc:
+    api-docs:
+      enabled: true
+      path: /v3/api-docs
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.oauth2: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+    enabled-by-default: true
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true

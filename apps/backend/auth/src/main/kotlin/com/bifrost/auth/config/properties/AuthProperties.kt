@@ -14,9 +14,9 @@ data class AuthProperties(
     "http://localhost:3001"
   ),
   val clients: Map<String, ClientConfig> = mapOf(
-    "registration" to ClientConfig(
-      clientId = "bifrost-registration",
-      clientSecret = "registration-secret",
+    "dashboard" to ClientConfig(
+      clientId = "bifrost-dashboard",
+      clientSecret = "dashboard-secret",
       redirectUris = listOf("http://localhost:3000/api/auth/callback/bifrost"),
       allowedScopes = listOf(
         OidcScopes.OPENID,
@@ -24,16 +24,6 @@ data class AuthProperties(
         OidcScopes.EMAIL
       )
     ),
-    "dashboard" to ClientConfig(
-      clientId = "bifrost-dashboard",
-      clientSecret = "dashboard-secret",
-      redirectUris = listOf("http://localhost:3001/api/auth/callback/bifrost"),
-      allowedScopes = listOf(
-        OidcScopes.OPENID,
-        OidcScopes.PROFILE,
-        OidcScopes.EMAIL
-      )
-    )
   )
 )
 
