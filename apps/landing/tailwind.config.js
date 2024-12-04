@@ -15,6 +15,7 @@ module.exports = {
       fontFamily: {
         comba: ["Comba", "sans-serif"],
         futura: ["Futura", "sans-serif"],
+        sfpro: ["sfpro", "sans-serif"],
       },
       keyframes: {
         float: {
