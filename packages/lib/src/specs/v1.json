@@ -1,0 +1,263 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "Bifrost API", "version": "1.0.0" },
+  "servers": [
+    { "url": "http://localhost:8080", "description": "Generated server url" }
+  ],
+  "paths": {
+    "/api/v1/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": { "204": { "description": "No Content" } }
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "tags": ["Users"],
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/applications": {
+      "get": {
+        "tags": ["Applications"],
+        "operationId": "getApplication",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Applications"],
+        "operationId": "submitApplication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Application" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "tags": ["Users"],
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Checkin": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "event": { "$ref": "#/components/schemas/Event" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "startTime": { "type": "integer", "format": "int64" },
+          "endTime": { "type": "integer", "format": "int64" },
+          "points": { "type": "integer", "format": "int32" },
+          "accessLevel": {
+            "type": "string",
+            "enum": [
+              "PARTICIPANT",
+              "MENTOR",
+              "SPONSOR",
+              "JUDGE",
+              "ORGANIZER",
+              "ADMIN"
+            ]
+          },
+          "active": { "type": "boolean" },
+          "enableSelfCheckin": { "type": "boolean" }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "website": { "type": "string" },
+          "logo": { "type": "string" },
+          "startDate": { "type": "string", "format": "date-time" },
+          "endDate": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "leader": { "$ref": "#/components/schemas/User" },
+          "members": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/User" }
+          },
+          "open": { "type": "boolean" }
+        }
+      },
+      "User": {
+        "required": [
+          "checkins",
+          "college",
+          "email",
+          "name",
+          "status",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "name": { "type": "string" },
+          "team": { "$ref": "#/components/schemas/Team" },
+          "college": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": [
+              "UNVERIFIED",
+              "VERIFIED",
+              "COMPLETED_PROFILE",
+              "ADMITTED",
+              "REJECTED",
+              "CONFIRMED",
+              "DECLINED",
+              "WAITLISTED"
+            ]
+          },
+          "roles": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "checkins": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/UserCheckin" }
+          }
+        }
+      },
+      "UserCheckin": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "user": { "$ref": "#/components/schemas/User" },
+          "checkin": { "$ref": "#/components/schemas/Checkin" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "user": { "$ref": "#/components/schemas/User" },
+          "essayQuestion1": { "type": "string" },
+          "essayQuestion2": { "type": "string" },
+          "github": { "type": "string" },
+          "designPortfolio": { "type": "string" },
+          "resumeFilePath": { "type": "string" }
+        }
+      }
+    }
+  }
+}
