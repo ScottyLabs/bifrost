@@ -16,3 +16,9 @@
   src: url("/src/fonts/sfpro.otf") format("opentype");
   font-style: normal;
 }
+
+@font-face {
+  font-family: "basteleur";
+  src: url("/src/fonts/basteleur.otf") format("opentype");
+  font-style: normal;
+}
