@@ -32,9 +32,6 @@ module.exports = {
         rippleBlue: "#3A5FF3",
         black: "#1B1818",
       },
-      backgroundImage: {
-        'gradient': 'linear-gradient(180deg, #0B3B48 50%, #062128 100%)',
-      },
     },
   },
   plugins: [],

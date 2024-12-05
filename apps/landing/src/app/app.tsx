@@ -9,7 +9,9 @@ import { Sponsors } from "../components/sponsors";
 
 export function App() {
   return (
-    <div className="font-sfpro bg-gradient text-white">
+    <div className="font-sfpro bg-gradient-to-b from-50% to-100% from-[#0B3B48] to-[#062128] text-white">
+      <div className="absolute top-0 left-0 w-full h-full bg-[url('/public/left_swirl.svg')] bg-no-repeat z-0"></div>
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-[url('/public/right_swirl.svg')] bg-no-repeat z-0"></div>
       <Header />
       <Hero />
       <Desc />

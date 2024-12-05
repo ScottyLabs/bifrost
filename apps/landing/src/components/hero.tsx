@@ -3,7 +3,7 @@ import { RegisterButton } from "./register";
 export function Hero() {
   return (
     <section className="min-h-screen w-full flex items-center justify-center flex-col">
-      <div>
+      <div className="z-10">
         <img src="/tartanhacks.svg" alt="tartanhacks" className="px-10" />
       </div>
       <div className="text-white text-center mt-8 font-thin font-futura">
