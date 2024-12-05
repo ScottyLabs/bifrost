@@ -13,7 +13,7 @@ export function Desc() {
           Come on over to hack, learn from our workshops and incredible speakers, and meet other hackers from:
         </p>
         <p className="mt-5">
-          Feb 7-8 @ Carnegie Mellon University!
+          Feb 7 - 8 @ Carnegie Mellon University!
         </p>
       </div>
       <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0 z-40" />
