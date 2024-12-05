@@ -22,7 +22,7 @@ function HeaderLink({
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 w-full pt-6 pb-4 hidden lg:block backdrop-blur-md">
+    <header className="sticky top-0 w-full pt-6 pb-4 hidden lg:block backdrop-blur z-30">
       <div className="flex flex-row justify-between text-xl mr-12 ml-8">
         <div className="cursor-pointer">
           <Link to="/">
