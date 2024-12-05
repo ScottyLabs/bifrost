@@ -10,24 +10,24 @@ function HeaderLink({
   underlineColor: string;
 }) {
   return (
-    <Link to={href}>
+    <a href={href}>
       <span
         className={`cursor-pointer hover:underline ${underlineColor} decoration-8 underline-offset-8`}
       >
         {name}
       </span>
-    </Link>
+    </a>
   );
 }
 
 export function Header() {
   return (
-    <header className="sticky top-0 w-full pt-6 pb-4 hidden lg:block backdrop-blur z-30">
+    <header className="sticky top-0 w-full pt-6 pb-4 hidden lg:block backdrop-blur z-40">
       <div className="flex flex-row justify-between text-xl mr-12 ml-8">
         <div className="cursor-pointer">
-          <Link to="/">
+          <a href="/">
             <img src="/logo.svg" alt="logo" />
-          </Link>
+          </a>
         </div>
         <div className="space-x-16 text-lg flex items-center">
           <HeaderLink
@@ -59,11 +59,6 @@ export function Header() {
             name="Sponsors"
             href="#sponsors"
             underlineColor="decoration-yellow"
-          />
-          <HeaderLink
-            name="Partners"
-            href="#partners"
-            underlineColor="decoration-purple"
           />
           <HeaderLink
             name="FAQs"

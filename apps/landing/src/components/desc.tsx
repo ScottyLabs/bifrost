@@ -1,11 +1,11 @@
 export function Desc() {
   return (
     <section
-      className="flex flex-col justify-center items-center py-36 mb-36"
-      id="desc"
+      className="flex flex-col justify-center items-center min-h-screen"
+      id="about"
     >
-      <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0 z-40" />
-      <div className="text-white text-center text-xl font-sfpro w-2/3 md:w-1/2 z-40">
+      <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0 z-30" />
+      <div className="text-white text-center text-xl font-sfpro w-2/3 md:w-1/2 z-30">
         <p>
           <span className="uppercase font-basteleur">Tartanhacks </span>
           is the largest Hackathon in Pittsburgh! Organized by ScottyLabs, it’s a 24-hour hackathon where participants
@@ -16,7 +16,7 @@ export function Desc() {
           Feb 7 - 8 @ Carnegie Mellon University!
         </p>
       </div>
-      <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0 z-40" />
+      <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0 z-30" />
     </section>
   );
 }
