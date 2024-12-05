@@ -1,7 +1,7 @@
 export function Theme() {
   return (
     <section
-      className="flex flex-col text-center text-white m-auto border-b-4 text-xl py-36 items-center"
+      className="flex flex-col text-center text-white text-xl pb-24 items-center"
       id="theme"
     >
         <h3 className="mt-16 text-4xl md:text-5xl font-bold">
