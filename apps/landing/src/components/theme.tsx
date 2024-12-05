@@ -7,7 +7,7 @@ export function Theme() {
         <h3 className="mt-16 text-4xl md:text-5xl font-bold">
           This year's theme is...
         </h3>
-        <h1 className="mt-8 px-10 uppercase font-basteleur text-7xl md:text-8xl">
+        <h1 className="mt-8 px-10 uppercase font-basteleur text-5xl md:text-8xl">
           Changing Tides
         </h1>
       <div className="w-2/3 md:w-1/2">
