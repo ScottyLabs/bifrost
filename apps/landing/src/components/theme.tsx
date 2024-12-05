@@ -4,13 +4,13 @@ export function Theme() {
       className="flex flex-col text-center text-white text-xl py-24 items-center"
       id="theme"
     >
-        <h3 className="mt-16 text-4xl md:text-5xl font-bold">
+        <h3 className="mt-16 text-4xl md:text-5xl font-bold z-30">
           This year's theme is...
         </h3>
-        <h1 className="mt-8 px-10 uppercase font-basteleur text-5xl md:text-8xl">
+        <h1 className="mt-8 px-10 uppercase font-basteleur text-5xl md:text-8xl z-30">
           Changing Tides
         </h1>
-      <div className="w-2/3 md:w-1/2">
+      <div className="w-2/3 md:w-1/2 z-30">
         <p className="mt-12">
           Take your most swashbuckling of crewmates along as you steer your team toward waters unknown!
         </p>
