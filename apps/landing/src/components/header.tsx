@@ -50,30 +50,40 @@ export function Header() {
             href="#about"
             underlineColor="decoration-yellow"
             onClick={toggleMenu}
+            underlineColor="decoration-blue"
           />
           <HeaderLink
             name="Theme"
             href="#theme"
             underlineColor="decoration-pink"
             onClick={toggleMenu}
+            underlineColor="decoration-white"
           />
           <HeaderLink
             name="Schedule"
             href="#schedule"
             underlineColor="decoration-blue"
             onClick={toggleMenu}
+            underlineColor="decoration-pink"
           />
           <HeaderLink
             name="Speakers"
             href="#speakers"
             underlineColor="decoration-purple"
             onClick={toggleMenu}
+            underlineColor="decoration-blue"
           />
           <HeaderLink
             name="Prizes"
             href="#prizes"
             underlineColor="decoration-blue"
             onClick={toggleMenu}
+            underlineColor="decoration-white"
+          />
+          <HeaderLink
+            name="Sponsors"
+            href="#sponsors"
+            underlineColor="decoration-pink"
           />
           <HeaderLink
             name="FAQs"
@@ -86,6 +96,7 @@ export function Header() {
             href="#sponsors"
             underlineColor="decoration-yellow"
             onClick={toggleMenu}
+            underlineColor="decoration-blue"
           />
         </div>
       </div>
