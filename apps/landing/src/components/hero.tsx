@@ -4,7 +4,7 @@ export function Hero() {
   return (
     <section className="min-h-screen w-full flex items-center justify-center flex-col">
       <div>
-        <img src="/tartanhacks.svg" alt="logo" className="px-10" />
+        <img src="/tartanhacks.svg" alt="tartanhacks" className="px-10" />
       </div>
       <div className="text-white text-center mt-8 font-thin font-futura">
         <h2 className="text-2xl">Presented by CMU ScottyLabs</h2>
