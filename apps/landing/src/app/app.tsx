@@ -6,6 +6,7 @@ import { Schedule } from "../components/schedule";
 import { Speakers } from "../components/speakers";
 import { Prizes } from "../components/prizes";
 import { Sponsors } from "../components/sponsors";
+import { Faqs } from "../components/faqs";
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
       <Schedule />
       <Speakers />
       <Prizes />
+      <Faqs />
       <Sponsors />
     </div>
   );
