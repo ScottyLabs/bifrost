@@ -3,6 +3,7 @@ import { Hero } from "../components/hero";
 import { Theme } from "../components/theme";
 import { Desc } from "../components/desc";
 import { Schedule } from "../components/schedule";
+import { Speakers } from "../components/speakers";
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
       <Desc />
       <Theme />
       <Schedule />
+      <Speakers />
     </div>
   );
 }
