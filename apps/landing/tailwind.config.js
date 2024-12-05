@@ -15,6 +15,8 @@ module.exports = {
       fontFamily: {
         comba: ["Comba", "sans-serif"],
         futura: ["Futura", "sans-serif"],
+        sfpro: ["sfpro", "sans-serif"],
+        basteleur: ["basteleur", "serif"],
       },
       keyframes: {
         float: {
@@ -27,6 +29,7 @@ module.exports = {
         yellow: "#f2dc00",
         red: "#E41A56",
         blue: "#1028f1",
+        rippleBlue: "#3A5FF3",
         black: "#1B1818",
       },
     },

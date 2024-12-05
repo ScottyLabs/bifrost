@@ -21,7 +21,7 @@ export function RegisterButton() {
   return (
     <div className="text-beige flex justify-center">
       <a href={registerLink} target="_blank" rel="noopener noreferrer">
-        <div className="border-2 border-black py-3 px-6 text-2xl font-thin bg-red animate-[float_2s_ease-in-out_infinite] text-black rounded-xl cursor-pointer hover:bg-black hover:text-red hover:border-red">
+        <div className="py-3 px-6 text-2xl font-thin bg-rippleBlue animate-[float_2s_ease-in-out_infinite] text-white rounded-md cursor-pointer hover:bg-blue">
           Pre-register Now!
         </div>
       </a>

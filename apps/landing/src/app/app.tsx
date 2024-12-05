@@ -1,34 +1,27 @@
 import { Header } from "../components/header";
-
 import { Hero } from "../components/hero";
 import { Theme } from "../components/theme";
+import { Desc } from "../components/desc";
+import { Schedule } from "../components/schedule";
+import { Speakers } from "../components/speakers";
+import { Prizes } from "../components/prizes";
+import { Sponsors } from "../components/sponsors";
+import { Faqs } from "../components/faqs";
 
 export function App() {
   return (
-    <div className="font-futura bg-black text-white">
+    <div className="relative font-sfpro bg-gradient-to-b from-50% to-100% from-[#0B3B48] to-[#062128] text-white">
+      <div className="absolute top-0 left-0 w-full h-full bg-[url('/left_swirl.svg')] bg-no-repeat"></div>
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-[url('/right_swirl.svg')] bg-no-repeat"></div>
       <Header />
       <Hero />
+      <Desc />
       <Theme />
-
-      {/* <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{" "}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes> */}
+      <Schedule />
+      <Speakers />
+      <Prizes />
+      <Faqs />
+      <Sponsors />
     </div>
   );
 }
