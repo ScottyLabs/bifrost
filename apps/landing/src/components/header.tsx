@@ -58,9 +58,9 @@ export function Header() {
             onClick={toggleMenu}
           />
           <HeaderLink
-            name="Schedule"
-            href="#schedule"
-            underlineColor="decoration-pink"
+            name="Sponsors"
+            href="#sponsors"
+            underlineColor="decoration-blue"
             onClick={toggleMenu}
           />
           <HeaderLink
@@ -76,15 +76,15 @@ export function Header() {
             onClick={toggleMenu}
           />
           <HeaderLink
-            name="FAQs"
-            href="#faq"
+            name="Schedule"
+            href="#schedule"
             underlineColor="decoration-pink"
             onClick={toggleMenu}
           />
           <HeaderLink
-            name="Sponsors"
-            href="#sponsors"
-            underlineColor="decoration-blue"
+            name="FAQs"
+            href="#faq"
+            underlineColor="decoration-pink"
             onClick={toggleMenu}
           />
         </div>
