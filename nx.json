@@ -44,6 +44,12 @@
         "serveStaticTargetName": "serve-static",
         "typecheckTargetName": "typecheck"
       }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      }
     }
   ],
   "targetDefaults": {},
