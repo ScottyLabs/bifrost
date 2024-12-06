@@ -9,6 +9,7 @@
     "naco-siren.gradle-language",
     "vscjava.vscode-gradle",
     "pulumi.pulumi-vscode-tools",
-    "pulumi.pulumi-lsp-client"
+    "pulumi.pulumi-lsp-client",
+    "firsttris.vscode-jest-runner"
   ]
 }
