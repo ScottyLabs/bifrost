@@ -1,0 +1,29 @@
+{
+  "name": "infra",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project infra",
+  "targets": {
+    "diff": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cdk diff"
+      },
+      "cache": false
+    },
+    "synth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cdk synth"
+      }
+    },
+    "refresh": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pulumi refresh --stack dev",
+        "cwd": "apps/infra"
+      }
+    }
+  }
+}
