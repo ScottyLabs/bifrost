@@ -20,3 +20,5 @@ vite.config.*.timestamp*
 
 .vscode/
 .idea/
+
+*.tsbuildinfo
