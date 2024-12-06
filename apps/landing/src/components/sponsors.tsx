@@ -1,7 +1,7 @@
 export function Sponsors() {
   return (
     <section
-      className="flex flex-col justify-center items-center pb-80"
+      className="flex flex-col justify-center items-center pb-24"
       id="sponsors"
     >
       <hr className="h-px my-8 w-3/4 md:w-2/3 bg-white border-0" />

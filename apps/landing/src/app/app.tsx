@@ -17,11 +17,11 @@ export function App() {
       <Hero />
       <Desc />
       <Theme />
-      <Schedule />
+      <Sponsors />
       <Speakers />
       <Prizes />
+      <Schedule />
       <Faqs />
-      <Sponsors />
     </div>
   );
 }
