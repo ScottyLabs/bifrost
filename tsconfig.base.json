@@ -1,19 +1,40 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // Paths
     "rootDir": ".",
+    "baseUrl": ".",
+
+    // Output
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "sourceMap": true,
     "declaration": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+
+    // Performance
+    "incremental": true,
+    "disableSourceOfProjectReferenceRedirect": true,
+
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
+
+    // Transpilation
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+
+    // Completeness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "checkJs": true,
+
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+
     "paths": {
       "@bifrost/lib/*": ["packages/lib/src/*"],
       "@bifrost/ui/*": ["packages/ui/src/*"]
