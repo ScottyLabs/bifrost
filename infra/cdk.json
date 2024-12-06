@@ -1,4 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/cdk.json",
-  "app": "pnpm exec tsx src/bin/app.ts"
+  "app": "pnpm exec tsx infra/src/bin/app.ts",
+  "context": {
+    "aws:accountId": "340752840444",
+    "aws:region": "us-east-2"
+  }
 }
