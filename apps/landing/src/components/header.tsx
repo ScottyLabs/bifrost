@@ -83,7 +83,7 @@ export function Header() {
           />
           <HeaderLink
             name="FAQs"
-            href="#faq"
+            href="#faqs"
             underlineColor="decoration-pink"
             onClick={toggleMenu}
           />
