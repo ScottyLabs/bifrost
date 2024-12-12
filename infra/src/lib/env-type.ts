@@ -1,4 +1,4 @@
 export enum EnvType {
-  STAGING = 'staging',
-  PRODUCTION = 'production',
+  STAGING = "staging",
+  PRODUCTION = "production",
 }

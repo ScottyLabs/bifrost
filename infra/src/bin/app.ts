@@ -42,7 +42,7 @@ async function deploy(config: Config) {
     dbCredentials: infra.datastore.credentials,
     cacheCluster: infra.cache.cacheCluster,
     bucket: infra.storage.bucket,
-    hostedZone: infra.domain.hostedZone,
+    hostedZone: infra.hostedZone,
     backendSecret: secrets.serviceSecrets.get("backend")!,
     commonSecret: secrets.commonSecret,
   });
