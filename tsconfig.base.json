@@ -1,11 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    // Paths
     "rootDir": ".",
     "baseUrl": ".",
-
-    // Output
     "esModuleInterop": true,
     "lib": ["ESNext"],
     "allowJs": true,
@@ -13,28 +10,19 @@
     "isolatedModules": true,
     "sourceMap": true,
     "declaration": true,
-
-    // Performance
     "incremental": true,
     "disableSourceOfProjectReferenceRedirect": true,
-
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-
-    // Transpilation
     "module": "ESNext",
     "moduleResolution": "bundler",
     "target": "ESNext",
-
-    // Completeness
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
-
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-
     "paths": {
       "@bifrost/lib/*": ["packages/lib/src/*"],
       "@bifrost/ui/*": ["packages/ui/src/*"]
