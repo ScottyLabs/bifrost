@@ -1,29 +1,30 @@
 server:
   port: 8080
 
+ory:
+  webhook:
+    auth-key-name: ${ORY_WEBHOOK_AUTH_KEY_NAME}
+    auth-key-value: ${ORY_WEBHOOK_AUTH_KEY_VALUE}
+
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000  # Auth server URL
-          # jwk-set-uri: http://localhost:9000/oauth2/jwks # If needed
+          issuer-uri: ${AUTH_ISSUER_URI}
+          jwks-uri: ${AUTH_JWKS_URI}
+          allowed-origins: ${AUTH_ALLOWED_ORIGINS}
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/resource
-    username: bifrost_user
-    password: bifrost_password
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-      javax:
-        persistence:
-          schema-generation.scripts.action: create
-          schema-generation.scripts.create-target: schema.sql
+        format_sql: true
     show-sql: true
 
   springdoc:

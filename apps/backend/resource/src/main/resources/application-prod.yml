@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-host:5432/resource_prod
+    username: prod_user
+    password: prod_password
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    
+logging:
+  level:
+    org.springframework: WARN

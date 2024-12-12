@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 
+
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
@@ -23,7 +24,23 @@ class GlobalExceptionHandler {
     return ResponseEntity(errorResponse, HttpStatus.NOT_FOUND)
   }
 
-  // Add other exception handlers as needed
+  // Handle 401 Unauthorized
+  @ExceptionHandler(value = [UnauthorizedException::class])
+  fun handleUnauthorizedException(ex: UnauthorizedException, request: WebRequest?): ResponseEntity<Any> {
+    val response: MutableMap<String, String> = HashMap()
+    response["error"] = "unauthorized"
+    response["message"] = ex.message ?: "Unauthorized"
+    return ResponseEntity(response, HttpStatus.UNAUTHORIZED)
+  }
+
+  // Handle other exceptions (optional)
+  @ExceptionHandler(value = [Exception::class])
+  fun handleGlobalException(ex: Exception?, request: WebRequest?): ResponseEntity<Any> {
+    val response: MutableMap<String, String> = HashMap()
+    response["error"] = "internal_error"
+    response["message"] = "An unexpected error occurred."
+    return ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR)
+  }
 }
 
 data class ErrorResponse(

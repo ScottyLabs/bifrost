@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -19,7 +19,6 @@ import java.util.*
 @Tag(name = "Users")
 class UserController(
   private val userService: UserService,
-//  private val securityUtils: SecurityUtils  // Inject security utilities
 ) {
 
   companion object {
@@ -68,13 +67,15 @@ class UserController(
   @GetMapping("/me")
   fun getCurrentUser(): ResponseEntity<User> {
     val authentication = SecurityContextHolder.getContext().authentication
-    val username = when (val principal = authentication.principal) {
-      is UserDetails -> principal.username
-      is String -> principal // In case the principal is just a username
+    val sub = when (val principal = authentication.principal) {
+      is Jwt -> principal.getClaim<String>("sub") // Extract 'sub' from the JWT
+      is String -> principal // If principal is a plain string
       else -> throw IllegalStateException("Invalid authentication principal")
     }
 
-    val user = userService.findByUsername(username)
+    // Fetch user details using the username (or subject)
+    val user = userService.findByExternalId(sub)
+
     return ResponseEntity.ok(user)
   }
 }

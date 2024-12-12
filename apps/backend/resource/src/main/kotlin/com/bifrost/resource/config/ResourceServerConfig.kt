@@ -1,5 +1,9 @@
 package com.bifrost.resource.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinFeature
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.Customizer.withDefaults
@@ -9,17 +13,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtDecoders
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.firewall.HttpFirewall
+import org.springframework.security.web.firewall.StrictHttpFirewall
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 class ResourceServerConfig {
+  @Value("\${spring.security.oauth2.resourceserver.jwt.allowed-origins}")
+  private lateinit var allowedOrigins: String
+
+  @Value("\${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+  private lateinit var issuerUri: String
+
+  @Value("\${spring.security.oauth2.resourceserver.jwt.jwks-uri}")
+  private lateinit var jwksUri: String
 
   @Bean
   fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -41,13 +54,11 @@ class ResourceServerConfig {
             "/v3/api-docs**", // .yaml
             "/swagger-ui**", // .html
           ).permitAll()
-          .requestMatchers("/api/public/**").permitAll() // Allow public endpoints
+          .requestMatchers("/api/public/**", "webhook/**").permitAll() // Allow public endpoints/webhooks
           .anyRequest().authenticated()
       }
       .oauth2ResourceServer { oauth2 ->
-        oauth2.jwt { jwt ->
-          jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-        }
+        oauth2.jwt(withDefaults())
       }
       .build()
   }
@@ -55,8 +66,9 @@ class ResourceServerConfig {
   @Bean
   fun corsConfigurationSource(): CorsConfigurationSource {
     val configuration = CorsConfiguration()
-    configuration.allowedOrigins = listOf("http://localhost:3000") // Allow localhost:3000
-    configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed HTTP methods
+
+    configuration.allowedOrigins = allowedOrigins.split(',').map { it.trim() }
+    configuration.allowedMethods = listOf("*") // Allow all HTTP methods
     configuration.allowedHeaders = listOf("*") // Allow all headers
     configuration.allowCredentials = true // Allow credentials like cookies, Authorization headers
 
@@ -67,17 +79,28 @@ class ResourceServerConfig {
 
   @Bean
   fun jwtDecoder(): JwtDecoder {
-    return JwtDecoders.fromIssuerLocation("http://localhost:9000")
+    return JwtDecoders.fromIssuerLocation(issuerUri)
   }
 
   @Bean
-  fun jwtAuthenticationConverter(): JwtAuthenticationConverter {
-    val jwtGrantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter()
-    jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles")
-    jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_")
+  fun allowUrlEncodedSlashHttpFirewall(): HttpFirewall {
+    val firewall = StrictHttpFirewall()
+    firewall.setAllowUrlEncodedSlash(true)
+    firewall.setAllowUrlEncodedPeriod(true)
+    return firewall
+  }
 
-    val jwtAuthenticationConverter = JwtAuthenticationConverter()
-    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter)
-    return jwtAuthenticationConverter
+  @Bean
+  fun objectMapper(): ObjectMapper {
+    return ObjectMapper().registerModule(
+      KotlinModule.Builder()
+        .withReflectionCacheSize(512)
+        .configure(KotlinFeature.NullToEmptyCollection, false)
+        .configure(KotlinFeature.NullToEmptyMap, false)
+        .configure(KotlinFeature.NullIsSameAsDefault, false)
+        .configure(KotlinFeature.SingletonSupport, false)
+        .configure(KotlinFeature.StrictNullChecks, false)
+        .build()
+    )
   }
 }

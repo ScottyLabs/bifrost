@@ -1,4 +1,7 @@
 version: "3.8"
+
+name: bifrost
+
 services:
   postgres:
     image: postgres:16

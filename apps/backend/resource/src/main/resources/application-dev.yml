@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resource
+    username: bifrost_user
+    password: bifrost_password
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  liquibase:
+    enabled: false
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.bifrost.resource.controller: DEBUG

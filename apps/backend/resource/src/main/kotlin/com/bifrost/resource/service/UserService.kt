@@ -12,11 +12,9 @@ import java.util.*
 class UserService(
   private val userRepository: UserRepository
 ) {
-  fun findById(id: UUID): User = userRepository.findById(id).orElse(null)
-
-  fun findByUsername(username: String): User? = userRepository.findByUsername(username)
-
-  fun findByEmail(email: String): User? = userRepository.findByEmail(email)
+  fun findById(id: UUID): User? = userRepository.findById(id).orElse(null)
+  
+  fun findByExternalId(externalId: String): User? = userRepository.findByExternalId(externalId)
 
   @Transactional
   fun create(user: User): User = userRepository.save(user)
@@ -24,5 +22,6 @@ class UserService(
   @Transactional
   fun update(user: User): User = userRepository.save(user)
 
+  @Transactional
   fun delete(id: UUID) = userRepository.deleteById(id)
 }
