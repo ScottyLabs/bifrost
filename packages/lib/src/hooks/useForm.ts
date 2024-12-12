@@ -16,5 +16,3 @@ export function useForm<TSchema extends z.ZodType>(
 
   return form;
 }
-
-export default useForm;
