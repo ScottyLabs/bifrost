@@ -36,7 +36,7 @@ class WebhookController(
     // Extract user data from the webhook payload
     val userId = webhookPayload.userId
 
-    val existingUser = userService.findByExternalId(userId)
+    val existingUser = userService.getUserByExternalId(userId)
 
     if (existingUser != null) {
       logger.info("User already exists in the database")
@@ -44,8 +44,10 @@ class WebhookController(
     }
 
     // Save or update the user in your business database
-    val result = userService.create(
-      User(externalId = userId)
+    val result = userService.createUser(
+      User(
+        externalId = userId
+      )
     )
 
     logger.info("User saved successfully")

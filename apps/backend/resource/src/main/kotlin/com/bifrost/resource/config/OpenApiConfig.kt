@@ -13,6 +13,7 @@ class OpenApiConfig {
     .info(
       Info()
         .title("Bifrost API")
+        .description("API documentation for Bifrost")
         .version("1.0.0")
     )
 }

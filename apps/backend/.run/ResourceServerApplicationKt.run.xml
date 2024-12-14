@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ResourceServerApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
+    <envs>
+      <env name="AUTH_ALLOWED_ORIGINS" value="http://localhost:5173/" />
+      <env name="AUTH_ISSUER_URI" value="https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com" />
+      <env name="AUTH_JWKS_URI" value="https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com/.well-known/jwks.json" />
+      <env name="ORY_WEBHOOK_AUTH_KEY_NAME" value="authentication-key" />
+      <env name="ORY_WEBHOOK_AUTH_KEY_VALUE" value="fae574a753f4b0cfdb59e25699f80cbb1fdd6a2d709062966ca9f7e21e80fad5" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.bifrost.resource.ResourceServerApplicationKt" />
+    <module name="backend.resource.main" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=dev" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

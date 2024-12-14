@@ -11,7 +11,7 @@ data class Track(
   val id: UUID,
 
   @Column(nullable = false)
-  var name: String,      // e.g., "Fintech", "Healthcare", "Education"
+  var name: String,
 
   @Column(nullable = false)
   var description: String,
