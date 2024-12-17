@@ -13,5 +13,8 @@ spring:
 
 logging:
   level:
-    org.springframework: DEBUG
-    com.bifrost.resource.controller: DEBUG
+    root: INFO
+    com.bifrost: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: TRACE
+    org.springframework.web: DEBUG
