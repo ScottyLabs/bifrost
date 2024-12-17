@@ -2,7 +2,6 @@ import "~/styles/index.css";
 
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import {
-  data,
   Links,
   Meta,
   Outlet,
@@ -55,7 +54,7 @@ function Layout({
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("cookie"));
   const info = session.get("info");
-  return data({ info });
+  return { info };
 }
 
 export default function App() {

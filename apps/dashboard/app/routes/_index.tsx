@@ -1,4 +1,4 @@
-import { data, LoaderFunctionArgs, redirect } from "@remix-run/node";
+import { LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { StatusCard } from "~/components/status-card";
 import { getClient } from "~/services/client.server";
@@ -19,7 +19,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     client.GET("/api/users/me"),
   ]);
 
-  return data({ info, application: application.data, me: me.data });
+  return { info, application: application.data, me: me.data };
 }
 
 export default function Page() {

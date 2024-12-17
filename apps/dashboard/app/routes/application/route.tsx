@@ -33,7 +33,7 @@ import { getSession } from "~/services/session.server";
 export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("cookie"));
   const user = session.get("info");
-  return data({ user });
+  return { user };
 }
 
 export default function Page() {
