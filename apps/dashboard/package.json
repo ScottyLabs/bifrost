@@ -4,6 +4,7 @@
     "build": "remix vite:build",
     "dev": "remix vite:dev"
   },
+  "module": "ESNext",
   "dependencies": {
     "@remix-run/node": "^2.15.0",
     "@remix-run/react": "^2.15.0",
