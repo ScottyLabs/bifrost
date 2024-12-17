@@ -32,7 +32,7 @@ export const strategy = new OAuth2Strategy<User>(
 
     authorizationEndpoint: `${env.OIDC_ISSUER}/oauth2/auth`,
     tokenEndpoint: `${env.OIDC_ISSUER}/oauth2/token`,
-    redirectURI: "http://localhost:5173/auth/callback",
+    redirectURI: `${env.SELF_URI}/auth/callback`,
 
     scopes: ["openid", "email", "profile", "offline_access"],
   },
