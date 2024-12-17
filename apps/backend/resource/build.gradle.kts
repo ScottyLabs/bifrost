@@ -9,6 +9,7 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
 
   // For Swagger docs
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")

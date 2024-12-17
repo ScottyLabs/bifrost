@@ -17,7 +17,7 @@ class UserService(
 ) {
   fun getUser(id: UUID): User {
     return userRepository.findById(id)
-      .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "User not found") }
+      .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "User not found: $id") }
   }
 
   fun getUserByExternalId(externalId: String): User {
@@ -41,7 +41,7 @@ class UserService(
       teamRepository.findById(teamId.id)
         .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found") }
     }
-    user.roles = updatedUser.roles
+    user.accessLevels = updatedUser.accessLevels
 
     return userRepository.save(user)
   }

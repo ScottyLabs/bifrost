@@ -1,7 +1,6 @@
 package com.bifrost.resource.model
 
 import jakarta.persistence.*
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -20,5 +19,5 @@ data class UserCheckin(
   var checkin: Checkin,
 
   @Column(nullable = false)
-  var timestamp: LocalDateTime = LocalDateTime.now()
+  var timestamp: Date = Date()
 )

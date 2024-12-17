@@ -3,7 +3,6 @@ package com.bifrost.resource.model
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -112,11 +111,11 @@ data class Application(
 
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
-  var createdAt: LocalDateTime = LocalDateTime.now(),
+  var createdAt: Date = Date(),
 
   @UpdateTimestamp
   @Column(nullable = false)
-  var updatedAt: LocalDateTime = LocalDateTime.now()
+  var updatedAt: Date = Date()
 )
 
 enum class Grade {

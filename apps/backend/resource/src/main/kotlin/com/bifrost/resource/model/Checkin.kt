@@ -1,6 +1,7 @@
 package com.bifrost.resource.model
 
 import jakarta.persistence.*
+import org.hibernate.annotations.CreationTimestamp
 import java.util.*
 
 @Entity
@@ -36,5 +37,9 @@ data class Checkin(
   var active: Boolean = true,
 
   @Column(nullable = false)
-  var enableSelfCheckin: Boolean = false
+  var enableSelfCheckin: Boolean = false,
+
+  @CreationTimestamp
+  @Column(nullable = false)
+  var createdAt: Date = Date()
 )

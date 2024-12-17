@@ -3,7 +3,6 @@ package com.bifrost.resource.model
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -25,21 +24,25 @@ data class User(
   @JoinColumn(name = "team_id")
   var team: Team? = null,
 
-  @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
-  @Column(name = "role", nullable = false)
-  var roles: Set<String> = setOf(),
+  @ElementCollection(fetch = FetchType.EAGER, targetClass = AccessLevel::class)
+  @CollectionTable(
+    name = "user_access_levels",
+    joinColumns = [JoinColumn(name = "user_id")]
+  )
+  @Column(name = "access_level")
+  @Enumerated(EnumType.STRING)
+  var accessLevels: MutableSet<AccessLevel> = mutableSetOf(),
 
   @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
   var application: Application? = null,
 
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
-  var createdAt: LocalDateTime = LocalDateTime.now(),
+  var createdAt: Date = Date(),
 
   @UpdateTimestamp
   @Column(nullable = false)
-  var updatedAt: LocalDateTime = LocalDateTime.now()
+  var updatedAt: Date = Date()
 )
 
 enum class UserStatus {

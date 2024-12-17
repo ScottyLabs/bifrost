@@ -1,5 +1,6 @@
 package com.bifrost.resource.config
 
+import com.bifrost.resource.service.UserService
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -11,8 +12,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.oauth2.jwt.JwtDecoder
-import org.springframework.security.oauth2.jwt.JwtDecoders
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.firewall.HttpFirewall
 import org.springframework.security.web.firewall.StrictHttpFirewall
@@ -24,7 +27,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-class ResourceServerConfig {
+class ResourceServerConfig(
+  private val userService: UserService
+) {
   @Value("\${spring.security.oauth2.resourceserver.jwt.allowed-origins}")
   private lateinit var allowedOrigins: String
 
@@ -81,7 +86,7 @@ class ResourceServerConfig {
 
   @Bean
   fun jwtDecoder(): JwtDecoder {
-    return JwtDecoders.fromIssuerLocation(issuerUri)
+    return NimbusJwtDecoder.withJwkSetUri(jwksUri).build()
   }
 
   @Bean
@@ -104,5 +109,17 @@ class ResourceServerConfig {
         .configure(KotlinFeature.StrictNullChecks, false)
         .build()
     )
+  }
+
+  @Bean
+  fun jwtAuthenticationConverter(): JwtAuthenticationConverter {
+    return JwtAuthenticationConverter().apply {
+      setJwtGrantedAuthoritiesConverter { jwt ->
+        val user = userService.getUserByExternalId(jwt.subject)
+        user.accessLevels.map {
+          SimpleGrantedAuthority("ROLE_${it.name}")
+        }
+      }
+    }
   }
 }

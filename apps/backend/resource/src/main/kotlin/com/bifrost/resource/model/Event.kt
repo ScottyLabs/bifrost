@@ -1,7 +1,6 @@
 package com.bifrost.resource.model
 
 import jakarta.persistence.*
-import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -19,8 +18,8 @@ data class Event(
   var logo: String? = null,
 
   @Column(nullable = false)
-  var startDate: LocalDateTime,
+  var startDate: Date,
 
   @Column(nullable = false)
-  var endDate: LocalDateTime
+  var endDate: Date
 )
