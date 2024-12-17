@@ -1,11 +1,21 @@
 {
   "openapi": "3.0.1",
-  "info": { "title": "Bifrost API", "version": "1.0.0" },
+  "info": {
+    "title": "Bifrost API",
+    "description": "API documentation for Bifrost",
+    "version": "1.0.0"
+  },
   "servers": [
     { "url": "http://localhost:8080", "description": "Generated server url" }
   ],
+  "tags": [
+    {
+      "name": "Applications",
+      "description": "Application management endpoints"
+    }
+  ],
   "paths": {
-    "/api/v1/users/{id}": {
+    "/api/users/{id}": {
       "get": {
         "tags": ["Users"],
         "operationId": "getUser",
@@ -68,7 +78,200 @@
         "responses": { "204": { "description": "No Content" } }
       }
     },
-    "/api/v1/users": {
+    "/api/teams/{id}": {
+      "get": {
+        "tags": ["Teams"],
+        "operationId": "getTeam",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Teams"],
+        "operationId": "updateTeam",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateTeamRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/teams/{id}/leader/{userId}": {
+      "put": {
+        "tags": ["Teams"],
+        "operationId": "changeLeader",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/applications": {
+      "get": {
+        "tags": ["Applications"],
+        "summary": "Get user's application",
+        "description": "Retrieves the current user's application",
+        "operationId": "getApplication",
+        "responses": {
+          "200": {
+            "description": "Application found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "404": {
+            "description": "No application found for user",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Applications"],
+        "summary": "Update draft application",
+        "description": "Updates an existing application in DRAFT status",
+        "operationId": "updateApplication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ApplicationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Application updated successfully",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "409": {
+            "description": "Application is not in DRAFT status",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Applications"],
+        "summary": "Create new application",
+        "description": "Creates a new application in DRAFT status",
+        "operationId": "createApplication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ApplicationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Application created successfully",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "409": {
+            "description": "Application already exists",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/webhook/registration": {
+      "post": {
+        "tags": ["webhook-controller"],
+        "operationId": "handleRegistrationWebhook",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationWebhookPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/api/users": {
       "post": {
         "tags": ["Users"],
         "operationId": "createUser",
@@ -90,35 +293,107 @@
         }
       }
     },
-    "/api/applications": {
-      "get": {
-        "tags": ["Applications"],
-        "operationId": "getApplication",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
-              }
-            }
-          }
-        }
-      },
+    "/api/teams": {
       "post": {
-        "tags": ["Applications"],
-        "operationId": "submitApplication",
+        "tags": ["Teams"],
+        "operationId": "createTeam",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Application" }
+              "schema": { "$ref": "#/components/schemas/CreateTeamRequest" }
             }
           },
           "required": true
         },
         "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/teams/{id}/members/{userId}": {
+      "post": {
+        "tags": ["Teams"],
+        "operationId": "addMember",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
           "200": {
             "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Teams"],
+        "operationId": "removeMember",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/applications/submit": {
+      "post": {
+        "tags": ["Applications"],
+        "summary": "Submit application",
+        "description": "Submits a DRAFT application for review",
+        "operationId": "submitApplication",
+        "responses": {
+          "200": {
+            "description": "Application submitted successfully",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "409": {
+            "description": "Application is not in DRAFT status",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/Application" }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
             "content": {
               "*/*": {
                 "schema": { "$ref": "#/components/schemas/Application" }
@@ -128,10 +403,18 @@
         }
       }
     },
-    "/api/v1/users/me": {
+    "/api/users/external/{externalId}": {
       "get": {
         "tags": ["Users"],
-        "operationId": "getCurrentUser",
+        "operationId": "getUserByExternalId",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -145,43 +428,131 @@
   },
   "components": {
     "schemas": {
-      "Checkin": {
+      "Application": {
+        "required": [
+          "age",
+          "city",
+          "codeOfConductAcknowledgement",
+          "createdAt",
+          "email",
+          "essayQuestion1",
+          "ethnicity",
+          "gender",
+          "githubUrl",
+          "grade",
+          "id",
+          "linkedinUrl",
+          "major",
+          "name",
+          "phone",
+          "photoReleaseAcknowledgement",
+          "previousProgrammingExperience",
+          "privacyPolicyAcknowledgement",
+          "programmingLanguages",
+          "relevantCoursework",
+          "resumeUrl",
+          "school",
+          "status",
+          "termsAndConditionsAcknowledgement",
+          "travelReimbursementAcknowledgement",
+          "tshirtSize",
+          "updatedAt",
+          "user"
+        ],
         "type": "object",
         "properties": {
           "id": { "type": "string", "format": "uuid" },
-          "event": { "$ref": "#/components/schemas/Event" },
+          "user": { "$ref": "#/components/schemas/User" },
           "name": { "type": "string" },
-          "description": { "type": "string" },
-          "startTime": { "type": "integer", "format": "int64" },
-          "endTime": { "type": "integer", "format": "int64" },
-          "points": { "type": "integer", "format": "int32" },
-          "accessLevel": {
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "school": { "type": "string" },
+          "grade": {
             "type": "string",
             "enum": [
-              "PARTICIPANT",
-              "MENTOR",
-              "SPONSOR",
-              "JUDGE",
-              "ORGANIZER",
-              "ADMIN"
+              "FRESHMAN",
+              "SOPHOMORE",
+              "JUNIOR",
+              "SENIOR",
+              "GRADUATE",
+              "OTHER"
             ]
           },
-          "active": { "type": "boolean" },
-          "enableSelfCheckin": { "type": "boolean" }
-        }
-      },
-      "Event": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "name": { "type": "string" },
-          "website": { "type": "string" },
-          "logo": { "type": "string" },
-          "startDate": { "type": "string", "format": "date-time" },
-          "endDate": { "type": "string", "format": "date-time" }
+          "age": { "type": "integer", "format": "int32" },
+          "gender": {
+            "type": "string",
+            "enum": ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]
+          },
+          "ethnicity": {
+            "type": "string",
+            "enum": [
+              "WHITE",
+              "BLACK",
+              "ASIAN",
+              "HISPANIC",
+              "NATIVE_AMERICAN",
+              "PACIFIC_ISLANDER",
+              "OTHER",
+              "PREFER_NOT_TO_SAY"
+            ]
+          },
+          "city": { "type": "string" },
+          "major": { "type": "string" },
+          "relevantCoursework": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "programmingLanguages": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "previousProgrammingExperience": { "type": "boolean" },
+          "essayQuestion1": { "type": "string" },
+          "githubUrl": { "type": "string" },
+          "linkedinUrl": { "type": "string" },
+          "resumeUrl": { "type": "string" },
+          "designPortfolioUrl": { "type": "string" },
+          "dietaryRestrictions": { "type": "string" },
+          "tshirtSize": {
+            "type": "string",
+            "enum": ["XS", "S", "M", "L", "XL", "XXL"]
+          },
+          "accessibilityNeeds": { "type": "string" },
+          "travelReimbursementAcknowledgement": { "type": "boolean" },
+          "travelReimbursementDetails": { "type": "string" },
+          "codeOfConductAcknowledgement": { "type": "boolean" },
+          "privacyPolicyAcknowledgement": { "type": "boolean" },
+          "termsAndConditionsAcknowledgement": { "type": "boolean" },
+          "photoReleaseAcknowledgement": { "type": "boolean" },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "ACCEPTED",
+              "REJECTED",
+              "WAITLISTED",
+              "WITHDRAWN"
+            ]
+          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
         }
       },
       "Team": {
+        "required": [
+          "createdAt",
+          "description",
+          "id",
+          "isOpen",
+          "leader",
+          "members",
+          "name",
+          "status",
+          "updatedAt"
+        ],
         "type": "object",
         "properties": {
           "id": { "type": "string", "format": "uuid" },
@@ -189,73 +560,159 @@
           "description": { "type": "string" },
           "leader": { "$ref": "#/components/schemas/User" },
           "members": {
+            "uniqueItems": true,
             "type": "array",
             "items": { "$ref": "#/components/schemas/User" }
           },
-          "open": { "type": "boolean" }
+          "isOpen": { "type": "boolean" },
+          "status": {
+            "type": "string",
+            "enum": ["ACTIVE", "LOCKED", "ARCHIVED"]
+          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "open": { "type": "boolean", "writeOnly": true }
         }
       },
       "User": {
         "required": [
-          "checkins",
-          "college",
-          "email",
-          "name",
+          "createdAt",
+          "externalId",
+          "id",
+          "roles",
           "status",
-          "username"
+          "updatedAt"
         ],
         "type": "object",
         "properties": {
           "id": { "type": "string", "format": "uuid" },
-          "username": { "type": "string" },
-          "email": { "type": "string" },
-          "name": { "type": "string" },
-          "team": { "$ref": "#/components/schemas/Team" },
-          "college": { "type": "string" },
+          "externalId": { "type": "string" },
           "status": {
             "type": "string",
-            "enum": [
-              "UNVERIFIED",
-              "VERIFIED",
-              "COMPLETED_PROFILE",
-              "ADMITTED",
-              "REJECTED",
-              "CONFIRMED",
-              "DECLINED",
-              "WAITLISTED"
-            ]
+            "enum": ["UNVERIFIED", "ACTIVE", "SUSPENDED", "BANNED", "DELETED"]
           },
+          "team": { "$ref": "#/components/schemas/Team" },
           "roles": {
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" }
           },
-          "checkins": {
-            "uniqueItems": true,
+          "application": { "$ref": "#/components/schemas/Application" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "UpdateTeamRequest": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "isOpen": { "type": "boolean" }
+        }
+      },
+      "ApplicationRequest": {
+        "required": [
+          "age",
+          "city",
+          "codeOfConductAcknowledgement",
+          "email",
+          "essayQuestion1",
+          "ethnicity",
+          "gender",
+          "githubUrl",
+          "grade",
+          "linkedinUrl",
+          "major",
+          "name",
+          "phone",
+          "photoReleaseAcknowledgement",
+          "previousProgrammingExperience",
+          "privacyPolicyAcknowledgement",
+          "programmingLanguages",
+          "relevantCoursework",
+          "resumeUrl",
+          "school",
+          "termsAndConditionsAcknowledgement",
+          "travelReimbursementAcknowledgement",
+          "tshirtSize"
+        ],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "school": { "type": "string" },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "FRESHMAN",
+              "SOPHOMORE",
+              "JUNIOR",
+              "SENIOR",
+              "GRADUATE",
+              "OTHER"
+            ]
+          },
+          "age": { "type": "integer", "format": "int32" },
+          "gender": {
+            "type": "string",
+            "enum": ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]
+          },
+          "ethnicity": {
+            "type": "string",
+            "enum": [
+              "WHITE",
+              "BLACK",
+              "ASIAN",
+              "HISPANIC",
+              "NATIVE_AMERICAN",
+              "PACIFIC_ISLANDER",
+              "OTHER",
+              "PREFER_NOT_TO_SAY"
+            ]
+          },
+          "city": { "type": "string" },
+          "major": { "type": "string" },
+          "relevantCoursework": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/UserCheckin" }
-          }
-        }
-      },
-      "UserCheckin": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "user": { "$ref": "#/components/schemas/User" },
-          "checkin": { "$ref": "#/components/schemas/Checkin" },
-          "timestamp": { "type": "string", "format": "date-time" }
-        }
-      },
-      "Application": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "user": { "$ref": "#/components/schemas/User" },
+            "items": { "type": "string" }
+          },
+          "programmingLanguages": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "previousProgrammingExperience": { "type": "boolean" },
           "essayQuestion1": { "type": "string" },
-          "essayQuestion2": { "type": "string" },
-          "github": { "type": "string" },
-          "designPortfolio": { "type": "string" },
-          "resumeFilePath": { "type": "string" }
+          "githubUrl": { "type": "string" },
+          "linkedinUrl": { "type": "string" },
+          "resumeUrl": { "type": "string" },
+          "designPortfolioUrl": { "type": "string" },
+          "dietaryRestrictions": { "type": "string" },
+          "tshirtSize": {
+            "type": "string",
+            "enum": ["XS", "S", "M", "L", "XL", "XXL"]
+          },
+          "accessibilityNeeds": { "type": "string" },
+          "travelReimbursementAcknowledgement": { "type": "boolean" },
+          "travelReimbursementDetails": { "type": "string" },
+          "codeOfConductAcknowledgement": { "type": "boolean" },
+          "privacyPolicyAcknowledgement": { "type": "boolean" },
+          "termsAndConditionsAcknowledgement": { "type": "boolean" },
+          "photoReleaseAcknowledgement": { "type": "boolean" }
+        }
+      },
+      "RegistrationWebhookPayload": {
+        "required": ["userId"],
+        "type": "object",
+        "properties": { "userId": { "type": "string" } }
+      },
+      "CreateTeamRequest": {
+        "required": ["description", "leaderId", "name"],
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "leaderId": { "type": "string", "format": "uuid" }
         }
       }
     }

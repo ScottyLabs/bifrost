@@ -1,25 +1,18 @@
 package com.bifrost.resource.config
 
-import com.bifrost.resource.security.authority.Role
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.convert.converter.Converter
-import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.core.authority.SimpleGrantedAuthority
-import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtDecoders
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.firewall.HttpFirewall
 import org.springframework.security.web.firewall.StrictHttpFirewall
@@ -111,31 +104,5 @@ class ResourceServerConfig {
         .configure(KotlinFeature.StrictNullChecks, false)
         .build()
     )
-  }
-
-  @Bean
-  fun jwtAuthenticationConverter(): Converter<Jwt, AbstractAuthenticationToken> {
-    val grantedAuthoritiesConverter = JwtGrantedAuthoritiesConverter().apply {
-      setAuthoritiesClaimName("permissions")
-      setAuthorityPrefix("")
-    }
-
-    return JwtAuthenticationConverter().apply {
-      setJwtGrantedAuthoritiesConverter { jwt ->
-        val authorities = grantedAuthoritiesConverter.convert(jwt)?.toMutableList()
-          ?: mutableListOf()
-
-        jwt.getClaimAsString("role")?.let { roleString ->
-          Role.entries.find { it.value == "ROLE_$roleString" }?.let { role ->
-            authorities.add(SimpleGrantedAuthority(role.value))
-            role.authorities.forEach {
-              authorities.add(SimpleGrantedAuthority(it))
-            }
-          }
-        }
-
-        authorities
-      }
-    }
   }
 }

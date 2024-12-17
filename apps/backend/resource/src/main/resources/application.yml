@@ -35,12 +35,6 @@ spring:
       enabled: true
       path: /swagger-ui.html
 
-logging:
-  level:
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.oauth2: DEBUG
-
 management:
   endpoints:
     web:

@@ -1,6 +1,9 @@
 import { execSync } from "child_process";
-import { join } from "path";
+import { dirname, join } from "path";
 import { existsSync, mkdirSync } from "fs";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Define paths
 const specsDir = join(__dirname, "../specs");
