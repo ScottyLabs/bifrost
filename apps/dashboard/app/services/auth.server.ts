@@ -32,7 +32,7 @@ export const strategy = new OAuth2Strategy<User>(
 
     authorizationEndpoint: `${env.OIDC_ISSUER}/oauth2/auth`,
     tokenEndpoint: `${env.OIDC_ISSUER}/oauth2/token`,
-    redirectURI: `https://tartanhacks-dashboard.vercel.com/auth/callback`,
+    redirectURI: `https://tartanhacks-dashboard.vercel.app/auth/callback`,
 
     scopes: ["openid", "email", "profile", "offline_access"],
   },
