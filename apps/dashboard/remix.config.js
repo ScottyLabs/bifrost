@@ -14,5 +14,6 @@ export default {
   // assetsBuildDirectory: "public/build",
   // serverBuildPath: "build/index.js",
   // publicPath: "/build/",
+  "serverModuleFormat": "commonjs",
   watchPaths: () => createWatchPaths(__dirname),
 };
