@@ -31,7 +31,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 w-full pt-6 pb-4 backdrop-blur z-40">
+    <header className="fixed top-0 w-full py-6 backdrop-blur z-40">
       <div className="flex flex-row justify-between text-xl mr-12 ml-8">
         <div className="cursor-pointer w-1/6">
           <a href="/">

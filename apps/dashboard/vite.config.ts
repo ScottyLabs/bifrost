@@ -14,7 +14,9 @@ export default defineConfig({
       },
     }),
     tsconfigPaths({
-      root: "../../",
+      root: ".",
     }),
   ],
+  base: "./",
+  root: __dirname,
 });
