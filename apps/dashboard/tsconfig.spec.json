@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["vite/client", "node"]
+    "types": ["@remix-run/node", "vite/client", "node"]
   },
   "include": [
     "vite.config.ts",
