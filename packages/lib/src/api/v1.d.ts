@@ -164,6 +164,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/users/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getCurrentUser"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/users/external/{externalId}": {
         parameters: {
             query?: never;
@@ -250,7 +266,7 @@ export interface components {
             /** @enum {string} */
             status: "UNVERIFIED" | "ACTIVE" | "SUSPENDED" | "BANNED" | "DELETED";
             team?: components["schemas"]["Team"];
-            roles: string[];
+            accessLevels: ("PARTICIPANT" | "MENTOR" | "SPONSOR" | "JUDGE" | "ORGANIZER" | "ADMIN")[];
             application?: components["schemas"]["Application"];
             /** Format: date-time */
             createdAt: string;
@@ -707,6 +723,26 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["Application"];
+                };
+            };
+        };
+    };
+    getCurrentUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["User"];
                 };
             };
         };

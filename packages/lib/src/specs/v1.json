@@ -6,7 +6,10 @@
     "version": "1.0.0"
   },
   "servers": [
-    { "url": "http://localhost:8080", "description": "Generated server url" }
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
   ],
   "tags": [
     {
@@ -17,40 +20,56 @@
   "paths": {
     "/api/users/{id}": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "getUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           }
         }
       },
       "put": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "updateUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User" }
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
             }
           },
           "required": true
@@ -59,61 +78,90 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           }
         }
       },
       "delete": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "deleteUser",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
-        "responses": { "204": { "description": "No Content" } }
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
       }
     },
     "/api/teams/{id}": {
       "get": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "getTeam",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
       },
       "put": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "updateTeam",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/UpdateTeamRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTeamRequest"
+              }
             }
           },
           "required": true
@@ -122,7 +170,11 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
@@ -130,27 +182,39 @@
     },
     "/api/teams/{id}/leader/{userId}": {
       "put": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "changeLeader",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
@@ -158,7 +222,9 @@
     },
     "/api/applications": {
       "get": {
-        "tags": ["Applications"],
+        "tags": [
+          "Applications"
+        ],
         "summary": "Get user's application",
         "description": "Retrieves the current user's application",
         "operationId": "getApplication",
@@ -167,7 +233,9 @@
             "description": "Application found",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -175,21 +243,27 @@
             "description": "No application found for user",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           }
         }
       },
       "put": {
-        "tags": ["Applications"],
+        "tags": [
+          "Applications"
+        ],
         "summary": "Update draft application",
         "description": "Updates an existing application in DRAFT status",
         "operationId": "updateApplication",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/ApplicationRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
             }
           },
           "required": true
@@ -199,7 +273,9 @@
             "description": "Application updated successfully",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -207,7 +283,9 @@
             "description": "Application is not in DRAFT status",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -215,21 +293,27 @@
             "description": "Application not found",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           }
         }
       },
       "post": {
-        "tags": ["Applications"],
+        "tags": [
+          "Applications"
+        ],
         "summary": "Create new application",
         "description": "Creates a new application in DRAFT status",
         "operationId": "createApplication",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/ApplicationRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
             }
           },
           "required": true
@@ -239,7 +323,9 @@
             "description": "Application created successfully",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -247,7 +333,9 @@
             "description": "Application already exists",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           }
@@ -256,7 +344,9 @@
     },
     "/webhook/registration": {
       "post": {
-        "tags": ["webhook-controller"],
+        "tags": [
+          "webhook-controller"
+        ],
         "operationId": "handleRegistrationWebhook",
         "requestBody": {
           "content": {
@@ -268,17 +358,25 @@
           },
           "required": true
         },
-        "responses": { "200": { "description": "OK" } }
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/users": {
       "post": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "createUser",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User" }
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
             }
           },
           "required": true
@@ -287,7 +385,11 @@
           "201": {
             "description": "Created",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           }
         }
@@ -295,12 +397,16 @@
     },
     "/api/teams": {
       "post": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "createTeam",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/CreateTeamRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamRequest"
+              }
             }
           },
           "required": true
@@ -309,7 +415,11 @@
           "201": {
             "description": "Created",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
@@ -317,53 +427,77 @@
     },
     "/api/teams/{id}/members/{userId}": {
       "post": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "addMember",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
       },
       "delete": {
-        "tags": ["Teams"],
+        "tags": [
+          "Teams"
+        ],
         "operationId": "removeMember",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           },
           {
             "name": "userId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Team" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
             }
           }
         }
@@ -371,7 +505,9 @@
     },
     "/api/applications/submit": {
       "post": {
-        "tags": ["Applications"],
+        "tags": [
+          "Applications"
+        ],
         "summary": "Submit application",
         "description": "Submits a DRAFT application for review",
         "operationId": "submitApplication",
@@ -380,7 +516,9 @@
             "description": "Application submitted successfully",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -388,7 +526,9 @@
             "description": "Application is not in DRAFT status",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
               }
             }
           },
@@ -396,7 +536,29 @@
             "description": "Application not found",
             "content": {
               "*/*": {
-                "schema": { "$ref": "#/components/schemas/Application" }
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
               }
             }
           }
@@ -405,21 +567,29 @@
     },
     "/api/users/external/{externalId}": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "getUserByExternalId",
         "parameters": [
           {
             "name": "externalId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           }
         }
@@ -461,12 +631,25 @@
         ],
         "type": "object",
         "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "user": { "$ref": "#/components/schemas/User" },
-          "name": { "type": "string" },
-          "email": { "type": "string" },
-          "phone": { "type": "string" },
-          "school": { "type": "string" },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "school": {
+            "type": "string"
+          },
           "grade": {
             "type": "string",
             "enum": [
@@ -478,10 +661,18 @@
               "OTHER"
             ]
           },
-          "age": { "type": "integer", "format": "int32" },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
           "gender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER",
+              "PREFER_NOT_TO_SAY"
+            ]
           },
           "ethnicity": {
             "type": "string",
@@ -496,36 +687,79 @@
               "PREFER_NOT_TO_SAY"
             ]
           },
-          "city": { "type": "string" },
-          "major": { "type": "string" },
+          "city": {
+            "type": "string"
+          },
+          "major": {
+            "type": "string"
+          },
           "relevantCoursework": {
             "uniqueItems": true,
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "programmingLanguages": {
             "uniqueItems": true,
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
-          "previousProgrammingExperience": { "type": "boolean" },
-          "essayQuestion1": { "type": "string" },
-          "githubUrl": { "type": "string" },
-          "linkedinUrl": { "type": "string" },
-          "resumeUrl": { "type": "string" },
-          "designPortfolioUrl": { "type": "string" },
-          "dietaryRestrictions": { "type": "string" },
+          "previousProgrammingExperience": {
+            "type": "boolean"
+          },
+          "essayQuestion1": {
+            "type": "string"
+          },
+          "githubUrl": {
+            "type": "string"
+          },
+          "linkedinUrl": {
+            "type": "string"
+          },
+          "resumeUrl": {
+            "type": "string"
+          },
+          "designPortfolioUrl": {
+            "type": "string"
+          },
+          "dietaryRestrictions": {
+            "type": "string"
+          },
           "tshirtSize": {
             "type": "string",
-            "enum": ["XS", "S", "M", "L", "XL", "XXL"]
+            "enum": [
+              "XS",
+              "S",
+              "M",
+              "L",
+              "XL",
+              "XXL"
+            ]
           },
-          "accessibilityNeeds": { "type": "string" },
-          "travelReimbursementAcknowledgement": { "type": "boolean" },
-          "travelReimbursementDetails": { "type": "string" },
-          "codeOfConductAcknowledgement": { "type": "boolean" },
-          "privacyPolicyAcknowledgement": { "type": "boolean" },
-          "termsAndConditionsAcknowledgement": { "type": "boolean" },
-          "photoReleaseAcknowledgement": { "type": "boolean" },
+          "accessibilityNeeds": {
+            "type": "string"
+          },
+          "travelReimbursementAcknowledgement": {
+            "type": "boolean"
+          },
+          "travelReimbursementDetails": {
+            "type": "string"
+          },
+          "codeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "privacyPolicyAcknowledgement": {
+            "type": "boolean"
+          },
+          "termsAndConditionsAcknowledgement": {
+            "type": "boolean"
+          },
+          "photoReleaseAcknowledgement": {
+            "type": "boolean"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -537,8 +771,14 @@
               "WITHDRAWN"
             ]
           },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Team": {
@@ -555,59 +795,122 @@
         ],
         "type": "object",
         "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "leader": { "$ref": "#/components/schemas/User" },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "leader": {
+            "$ref": "#/components/schemas/User"
+          },
           "members": {
             "uniqueItems": true,
             "type": "array",
-            "items": { "$ref": "#/components/schemas/User" }
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
           },
-          "isOpen": { "type": "boolean" },
+          "isOpen": {
+            "type": "boolean"
+          },
           "status": {
             "type": "string",
-            "enum": ["ACTIVE", "LOCKED", "ARCHIVED"]
+            "enum": [
+              "ACTIVE",
+              "LOCKED",
+              "ARCHIVED"
+            ]
           },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" },
-          "open": { "type": "boolean", "writeOnly": true }
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "open": {
+            "type": "boolean",
+            "writeOnly": true
+          }
         }
       },
       "User": {
         "required": [
+          "accessLevels",
           "createdAt",
           "externalId",
           "id",
-          "roles",
           "status",
           "updatedAt"
         ],
         "type": "object",
         "properties": {
-          "id": { "type": "string", "format": "uuid" },
-          "externalId": { "type": "string" },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "externalId": {
+            "type": "string"
+          },
           "status": {
             "type": "string",
-            "enum": ["UNVERIFIED", "ACTIVE", "SUSPENDED", "BANNED", "DELETED"]
+            "enum": [
+              "UNVERIFIED",
+              "ACTIVE",
+              "SUSPENDED",
+              "BANNED",
+              "DELETED"
+            ]
           },
-          "team": { "$ref": "#/components/schemas/Team" },
-          "roles": {
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "accessLevels": {
             "uniqueItems": true,
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string",
+              "enum": [
+                "PARTICIPANT",
+                "MENTOR",
+                "SPONSOR",
+                "JUDGE",
+                "ORGANIZER",
+                "ADMIN"
+              ]
+            }
           },
-          "application": { "$ref": "#/components/schemas/Application" },
-          "createdAt": { "type": "string", "format": "date-time" },
-          "updatedAt": { "type": "string", "format": "date-time" }
+          "application": {
+            "$ref": "#/components/schemas/Application"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "UpdateTeamRequest": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "isOpen": { "type": "boolean" }
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "isOpen": {
+            "type": "boolean"
+          }
         }
       },
       "ApplicationRequest": {
@@ -638,10 +941,18 @@
         ],
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
-          "email": { "type": "string" },
-          "phone": { "type": "string" },
-          "school": { "type": "string" },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "school": {
+            "type": "string"
+          },
           "grade": {
             "type": "string",
             "enum": [
@@ -653,10 +964,18 @@
               "OTHER"
             ]
           },
-          "age": { "type": "integer", "format": "int32" },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
           "gender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "OTHER",
+              "PREFER_NOT_TO_SAY"
+            ]
           },
           "ethnicity": {
             "type": "string",
@@ -671,48 +990,108 @@
               "PREFER_NOT_TO_SAY"
             ]
           },
-          "city": { "type": "string" },
-          "major": { "type": "string" },
+          "city": {
+            "type": "string"
+          },
+          "major": {
+            "type": "string"
+          },
           "relevantCoursework": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
           "programmingLanguages": {
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "type": "string"
+            }
           },
-          "previousProgrammingExperience": { "type": "boolean" },
-          "essayQuestion1": { "type": "string" },
-          "githubUrl": { "type": "string" },
-          "linkedinUrl": { "type": "string" },
-          "resumeUrl": { "type": "string" },
-          "designPortfolioUrl": { "type": "string" },
-          "dietaryRestrictions": { "type": "string" },
+          "previousProgrammingExperience": {
+            "type": "boolean"
+          },
+          "essayQuestion1": {
+            "type": "string"
+          },
+          "githubUrl": {
+            "type": "string"
+          },
+          "linkedinUrl": {
+            "type": "string"
+          },
+          "resumeUrl": {
+            "type": "string"
+          },
+          "designPortfolioUrl": {
+            "type": "string"
+          },
+          "dietaryRestrictions": {
+            "type": "string"
+          },
           "tshirtSize": {
             "type": "string",
-            "enum": ["XS", "S", "M", "L", "XL", "XXL"]
+            "enum": [
+              "XS",
+              "S",
+              "M",
+              "L",
+              "XL",
+              "XXL"
+            ]
           },
-          "accessibilityNeeds": { "type": "string" },
-          "travelReimbursementAcknowledgement": { "type": "boolean" },
-          "travelReimbursementDetails": { "type": "string" },
-          "codeOfConductAcknowledgement": { "type": "boolean" },
-          "privacyPolicyAcknowledgement": { "type": "boolean" },
-          "termsAndConditionsAcknowledgement": { "type": "boolean" },
-          "photoReleaseAcknowledgement": { "type": "boolean" }
+          "accessibilityNeeds": {
+            "type": "string"
+          },
+          "travelReimbursementAcknowledgement": {
+            "type": "boolean"
+          },
+          "travelReimbursementDetails": {
+            "type": "string"
+          },
+          "codeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "privacyPolicyAcknowledgement": {
+            "type": "boolean"
+          },
+          "termsAndConditionsAcknowledgement": {
+            "type": "boolean"
+          },
+          "photoReleaseAcknowledgement": {
+            "type": "boolean"
+          }
         }
       },
       "RegistrationWebhookPayload": {
-        "required": ["userId"],
-        "type": "object",
-        "properties": { "userId": { "type": "string" } }
-      },
-      "CreateTeamRequest": {
-        "required": ["description", "leaderId", "name"],
+        "required": [
+          "userId"
+        ],
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "leaderId": { "type": "string", "format": "uuid" }
+          "userId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateTeamRequest": {
+        "required": [
+          "description",
+          "leaderId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "leaderId": {
+            "type": "string",
+            "format": "uuid"
+          }
         }
       }
     }
