@@ -1,5 +1,6 @@
 import { data, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { StatusCard } from "~/components/status-card";
 import { getClient } from "~/services/client.server";
 import { getSession } from "~/services/session.server";
 
@@ -13,15 +14,20 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const client = await getClient(request);
 
-  const status = await client.GET("/api/applications");
+  const [application, me] = await Promise.all([
+    client.GET("/api/applications"),
+    client.GET("/api/users/me"),
+  ]);
 
-  return data({ info, status });
+  return data({ info, application: application.data, me: me.data });
 }
 
 export default function Page() {
   const data = useLoaderData<typeof loader>();
 
-  return JSON.stringify(data);
-
-  // return <StatusCard />;
+  return (
+    <div className="h-screen grid place-items-center">
+      <StatusCard me={data.me} application={data.application} />
+    </div>
+  );
 }
