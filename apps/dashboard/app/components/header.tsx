@@ -11,13 +11,7 @@ export function Header({ user }: Props) {
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
       <div className="container flex items-center justify-between p-4">
         <div className="flex items-center gap-8">
-          <div className="relative h-24 w-24">
-            <img
-              src="/scotty.svg"
-              alt="TartanHacks Logo"
-              className="object-contain"
-            />
-          </div>
+          <img src="/scotty.svg" alt="TartanHacks Logo" className="h-24 w-24" />
           <div className="flex flex-col">
             <h1 className="text-5xl font-bold text-[#991A30]">
               TartanHacks <span className="text-lg text-[#D82444]">by</span>{" "}
