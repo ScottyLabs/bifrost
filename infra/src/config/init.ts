@@ -5,7 +5,7 @@ import { schema } from "./env-config";
 
 export async function initConfig(node: Node) {
   const env = node.tryGetContext("env");
-
+  console.log(`Initializing config for environment: ${env}`);
   if (!Object.values(EnvType).includes(env)) {
     throw new Error(`Invalid environment type: ${env}`);
   }

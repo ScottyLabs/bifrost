@@ -1,6 +1,6 @@
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
-import ec2 from "aws-cdk-lib/aws-ec2";
-import rds from "aws-cdk-lib/aws-rds";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as rds from "aws-cdk-lib/aws-rds";
 import { Construct } from "constructs";
 
 export interface DatastoreProps {

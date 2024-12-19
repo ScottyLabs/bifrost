@@ -1,6 +1,7 @@
 import type { Construct } from "constructs";
-import cdk from "aws-cdk-lib";
-import secretsmanager from "aws-cdk-lib/aws-secretsmanager";
+import * as cdk from "aws-cdk-lib";
+import { Stack } from "aws-cdk-lib";
+import * as secretsmanager from "aws-cdk-lib/aws-secretsmanager";
 
 import type { Config } from "~/config/env-config";
 
@@ -9,7 +10,7 @@ interface Props extends cdk.StackProps {
   readonly serviceNames: string[];
 }
 
-export class SecretsStack extends cdk.Stack {
+export class SecretsStack extends Stack {
   public readonly commonSecret: secretsmanager.Secret;
   public readonly serviceSecrets: Map<gitstring, secretsmanager.Secret>;
 

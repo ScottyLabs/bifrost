@@ -1,5 +1,5 @@
-import ec2 from "aws-cdk-lib/aws-ec2";
-import elasticache from "aws-cdk-lib/aws-elasticache";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as elasticache from "aws-cdk-lib/aws-elasticache";
 import { Construct } from "constructs";
 
 export interface CacheProps {

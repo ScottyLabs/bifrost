@@ -1,0 +1,93 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-2:340752840444:task-definition/backend:3",
+    "containerDefinitions": [
+        {
+            "name": "backend",
+            "image": "340752840444.dkr.ecr.us-east-2.amazonaws.com/bifrost-backend:latest",
+            "cpu": 0,
+            "links": [],
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/backend",
+                    "awslogs-region": "us-east-2",
+                    "awslogs-stream-prefix": "backend"
+                },
+                "secretOptions": []
+            },
+            "systemControls": [],
+            "credentialSpecs": []
+        }
+    ],
+    "family": "backend",
+    "taskRoleArn": "arn:aws:iam::340752840444:role/backend-fargate-task-role",
+    "executionRoleArn": "arn:aws:iam::340752840444:role/Backend-TaskDefinitionExecutionRole8D61C2FB-B7UrI3nJR3LC",
+    "networkMode": "awsvpc",
+    "revision": 3,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "4096",
+    "registeredAt": "2024-12-19T21:39:42.243Z",
+    "registeredBy": "arn:aws:sts::340752840444:assumed-role/cdk-hnb659fds-cfn-exec-role-340752840444-us-east-2/AWSCloudFormation",
+    "enableFaultInjection": false,
+    "tags": []
+}

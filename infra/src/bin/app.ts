@@ -13,6 +13,7 @@ import { SecretsStack } from "~/stacks/secrets";
 const app = new App();
 
 async function deploy(config: Config) {
+  console.log(config);
   const env: Environment = {
     account: config.accountId,
     region: config.region,
@@ -51,6 +52,7 @@ async function deploy(config: Config) {
 
   app.synth();
 }
+
 
 initConfig(app.node).then((config) => deploy(config));
 

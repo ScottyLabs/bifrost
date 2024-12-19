@@ -1,20 +1,22 @@
-import type elasticache from "aws-cdk-lib/aws-elasticache";
+import elasticache from "aws-cdk-lib/aws-elasticache";
 import type rds from "aws-cdk-lib/aws-rds";
 import type s3 from "aws-cdk-lib/aws-s3";
 import type sm from "aws-cdk-lib/aws-secretsmanager";
 import type { Construct } from "constructs";
-import cdk from "aws-cdk-lib";
-import cm from "aws-cdk-lib/aws-certificatemanager";
-import ec2 from "aws-cdk-lib/aws-ec2";
-import ecs from "aws-cdk-lib/aws-ecs";
-import elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
-import iam from "aws-cdk-lib/aws-iam";
-import logs from "aws-cdk-lib/aws-logs";
-import route53 from "aws-cdk-lib/aws-route53";
-import route53Targets from "aws-cdk-lib/aws-route53-targets";
+
+import * as cdk from "aws-cdk-lib";
+import * as cm from "aws-cdk-lib/aws-certificatemanager";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as ecs from "aws-cdk-lib/aws-ecs";
+import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
+import * as iam from "aws-cdk-lib/aws-iam";
+import * as logs from "aws-cdk-lib/aws-logs";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 
 import type { Config } from "~/config/env-config";
 import { AwsEcrRepository } from "~/constructs/ecr";
+
 
 export interface BackendStackProps extends cdk.StackProps {
   readonly cluster: ecs.ICluster;
