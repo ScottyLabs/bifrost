@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { StatusCard } from "~/components/status-card";
-import { getClient } from "~/services/client.server";
+import { getClient } from "~/services/api.server";
 import { getSession } from "~/services/session.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
