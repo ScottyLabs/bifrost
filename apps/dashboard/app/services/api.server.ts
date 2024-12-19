@@ -1,10 +1,11 @@
 import { paths } from "@bifrost/lib/api/v1";
 import createClient, { Middleware } from "openapi-fetch";
-import { commitSession, getSession } from "./session.server";
+import { commitSession, destroySession, getSession } from "./session.server";
 import { env } from "./env.server";
 import { strategy } from "./auth.server";
 
 import { jwtDecode } from "jwt-decode";
+import { redirect } from "@remix-run/node";
 
 function isTokenExpired(token: string) {
   try {
@@ -49,6 +50,11 @@ export async function getClient(request: Request) {
           console.info("Token refreshed");
         } catch (e) {
           console.error("Token refresh failed", e);
+          throw redirect("/auth/login", {
+            headers: {
+              "Set-Cookie": await destroySession(session),
+            },
+          });
         }
       }
     },
