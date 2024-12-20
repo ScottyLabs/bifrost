@@ -74,9 +74,9 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         cd apps/backend
-        docker compose up --build --no-start
-        docker push resource-app:latest
-        echo "image=resource-app:latest" >> $GITHUB_OUTPUT
+        docker docker-compose up --build --no-start 
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:bifrost-resource-app
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:bifrost-resource-app" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
