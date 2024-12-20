@@ -38,19 +38,3 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_17
   }
 }
-
-tasks.withType<Jar> {
-  manifest {
-    attributes(
-      "Main-Class" to "com.bifrost.resource.ResourceServerApplicationKt"
-    )
-  }
-  // This line of code recursively collects and copies all of a project's files
-  // and adds them to the JAR itself. One can extend this task, to skip certain
-  // files or particular types at will
-  from({
-    project.configurations.getByName("runtimeClasspath").map { file ->
-      if (file.isDirectory) file else zipTree(file)
-    }
-  })
-}

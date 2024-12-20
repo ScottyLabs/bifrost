@@ -26,28 +26,32 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
-  app:
+  resource-app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: bifrost-app
+      target: dev
+    container_name: resource-app
     environment:
       AUTH_ALLOWED_ORIGINS: "http://localhost:5173/"
       AUTH_ISSUER_URI: "https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com"
       AUTH_JWKS_URI: "https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com/.well-known/jwks.json"
       ORY_WEBHOOK_AUTH_KEY_NAME: "authentication-key"
       ORY_WEBHOOK_AUTH_KEY_VALUE: "fae574a753f4b0cfdb59e25699f80cbb1fdd6a2d709062966ca9f7e21e80fad5"
+      SPRING_PROFILES_ACTIVE: "dev"
+      GRADLE_USER_HOME: "/app/.gradle"
     ports:
-      - "8080:8080" # Expose the application port
+      - "8080:8080"
     depends_on:
-      - postgres # Ensure the database service starts first
-    command: [
-      "java",
-      "-Dspring.profiles.active=dev",
-      "-jar",
-      "resource/build/libs/resource-0.0.1-SNAPSHOT.jar"
-    ]
+      - postgres
+    volumes:
+      - ./settings.gradle.kts:/app/settings.gradle.kts
+      - ./build.gradle.kts:/app/build.gradle.kts
+      - ./gradle:/app/gradle
+      - ./resource:/app/resource
+      - gradle-cache:/app/.gradle
 
 volumes:
   postgres_data:
   pgadmin_data:
+  gradle-cache:

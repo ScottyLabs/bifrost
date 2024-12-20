@@ -11,6 +11,15 @@ spring:
   liquibase:
     enabled: false
 
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/
+      poll-interval: 2s
+      quiet-period: 1s
+    livereload:
+      enabled: true
+
 logging:
   level:
     root: INFO
