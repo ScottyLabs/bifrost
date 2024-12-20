@@ -2185,7 +2185,7 @@
                             ]
                           ]
                         },
-                        "name": "backend",
+                        "name": "bifrost-resource-app",
                         "portMappings": [
                           {
                             "containerPort": 8080,
@@ -2390,7 +2390,7 @@
                         "targetGroupArn": {
                           "Ref": "LoadBalancerListenerListenerTargetGroup3D7E246E"
                         },
-                        "containerName": "backend",
+                        "containerName": "bifrost-resource-app",
                         "containerPort": 8080
                       }
                     ],

@@ -79,7 +79,7 @@ export class BackendStack extends cdk.Stack {
         streamPrefix: "backend",
         logGroup: fargateLogGroup,
       }),
-      containerName: "backend",
+      containerName: "bifrost-resource-app",
       environment: {},
       secrets: {},
       portMappings: [{ containerPort: 8080 }],

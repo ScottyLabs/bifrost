@@ -177,7 +177,7 @@
         "awslogs-region": "us-east-2"
        }
       },
-      "Name": "backend",
+      "Name": "bifrost-resource-app",
       "PortMappings": [
        {
         "ContainerPort": 8080,
@@ -308,7 +308,7 @@
     "LaunchType": "FARGATE",
     "LoadBalancers": [
      {
-      "ContainerName": "backend",
+      "ContainerName": "bifrost-resource-app",
       "ContainerPort": 8080,
       "TargetGroupArn": {
        "Ref": "LoadBalancerListenerListenerTargetGroup3D7E246E"
