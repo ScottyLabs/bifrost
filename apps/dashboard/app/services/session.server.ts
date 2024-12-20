@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 import type { TokenInfo, UserInfo } from "./auth.server";
 import { env } from "./env.server";
@@ -19,3 +19,14 @@ export const sessionStorage = createCookieSessionStorage<SessionData>({
 });
 
 export const { getSession, commitSession, destroySession } = sessionStorage;
+
+export async function requireSession(request: Request) {
+  const session = await getSession(request.headers.get("cookie"));
+  if (!session.has("info")) {
+    throw redirect("/auth/login", {
+      headers: {
+        "Set-Cookie": await destroySession(session),
+      },
+    });
+  }
+}
