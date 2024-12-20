@@ -74,7 +74,7 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         cd apps/backend
-        docker compose up --build --no-start -t
+        docker compose up --build --no-start
         docker push bifrost-backend:latest
         echo "image=bifrost-backend:latest" >> $GITHUB_OUTPUT
 
