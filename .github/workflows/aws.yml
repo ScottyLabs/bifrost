@@ -75,8 +75,8 @@ jobs:
         # be deployed to ECS.
         cd apps/backend
         docker compose up --build --no-start
-        docker push bifrost-backend:latest
-        echo "image=bifrost-backend:latest" >> $GITHUB_OUTPUT
+        docker push bifrost-app:latest
+        echo "image=bifrost-app:latest" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
