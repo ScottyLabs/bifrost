@@ -1,3 +1,11 @@
+plugins {
+  kotlin("jvm")
+  kotlin("plugin.spring")
+  kotlin("plugin.jpa")
+  id("org.springframework.boot")
+  id("io.spring.dependency-management")
+}
+
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-security")
@@ -25,8 +33,4 @@ dependencies {
 
   //  dev
   developmentOnly("org.springframework.boot:spring-boot-devtools")
-}
-
-plugins {
-  id("org.jetbrains.kotlin.plugin.jpa") version "1.9.22"
 }
