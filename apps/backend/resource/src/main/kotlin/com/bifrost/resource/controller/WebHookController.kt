@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/webhook")
@@ -36,21 +37,19 @@ class WebhookController(
     // Extract user data from the webhook payload
     val userId = webhookPayload.userId
 
-    val existingUser = userService.getUserByExternalId(userId)
-
-    if (existingUser != null) {
+    try {
+      userService.getUserByExternalId(userId)
       logger.info("User already exists in the database")
-      return
+    } catch (e: ResponseStatusException) {
+      // Save or update the user in your business database
+      userService.createUser(
+        User(
+          externalId = userId
+        )
+      );
+
+      logger.info("User saved successfully")
     }
-
-    // Save or update the user in your business database
-    val result = userService.createUser(
-      User(
-        externalId = userId
-      )
-    )
-
-    logger.info("User saved successfully")
   }
 }
 
