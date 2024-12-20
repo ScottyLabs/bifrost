@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/resource
+    url: jdbc:postgresql://bifrost-postgres:5432/resource
     username: bifrost_user
     password: bifrost_password
 

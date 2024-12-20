@@ -15,5 +15,39 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bifrost-app
+    environment:
+      AUTH_ALLOWED_ORIGINS: "http://localhost:5173/"
+      AUTH_ISSUER_URI: "https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com"
+      AUTH_JWKS_URI: "https://eloquent-bardeen-hsgstmum1n.projects.oryapis.com/.well-known/jwks.json"
+      ORY_WEBHOOK_AUTH_KEY_NAME: "authentication-key"
+      ORY_WEBHOOK_AUTH_KEY_VALUE: "fae574a753f4b0cfdb59e25699f80cbb1fdd6a2d709062966ca9f7e21e80fad5"
+    ports:
+      - "8080:8080" # Expose the application port
+    depends_on:
+      - postgres # Ensure the database service starts first
+    command: [
+      "java",
+      "-Dspring.profiles.active=dev",
+      "-jar",
+      "resource/build/libs/resource-0.0.1-SNAPSHOT.jar"
+    ]
+
 volumes:
   postgres_data:
+  pgadmin_data:
