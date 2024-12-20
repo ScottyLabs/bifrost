@@ -59,20 +59,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /**
-         * Get user's application
-         * @description Retrieves the current user's application
-         */
+        /** Get user's application */
         get: operations["getApplication"];
-        /**
-         * Update draft application
-         * @description Updates an existing application in DRAFT status
-         */
+        /** Update draft application */
         put: operations["updateApplication"];
-        /**
-         * Create new application
-         * @description Creates a new application in DRAFT status
-         */
+        /** Create new application */
         post: operations["createApplication"];
         delete?: never;
         options?: never;
@@ -153,10 +144,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * Submit application
-         * @description Submits a DRAFT application for review
-         */
+        /** Submit application */
         post: operations["submitApplication"];
         delete?: never;
         options?: never;
@@ -215,15 +203,15 @@ export interface components {
             /** @enum {string} */
             gender: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
             /** @enum {string} */
-            ethnicity: "WHITE" | "BLACK" | "ASIAN" | "HISPANIC" | "NATIVE_AMERICAN" | "PACIFIC_ISLANDER" | "OTHER" | "PREFER_NOT_TO_SAY";
+            ethnicity: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
             city: string;
             major: string;
             relevantCoursework: string[];
             programmingLanguages: string[];
             previousProgrammingExperience: boolean;
             essayQuestion1: string;
-            githubUrl: string;
-            linkedinUrl: string;
+            githubUrl?: string;
+            linkedinUrl?: string;
             resumeUrl: string;
             designPortfolioUrl?: string;
             dietaryRestrictions?: string;
@@ -290,15 +278,15 @@ export interface components {
             /** @enum {string} */
             gender: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
             /** @enum {string} */
-            ethnicity: "WHITE" | "BLACK" | "ASIAN" | "HISPANIC" | "NATIVE_AMERICAN" | "PACIFIC_ISLANDER" | "OTHER" | "PREFER_NOT_TO_SAY";
+            ethnicity: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
             city: string;
             major: string;
             relevantCoursework: string[];
             programmingLanguages: string[];
             previousProgrammingExperience: boolean;
             essayQuestion1: string;
-            githubUrl: string;
-            linkedinUrl: string;
+            githubUrl?: string;
+            linkedinUrl?: string;
             resumeUrl: string;
             designPortfolioUrl?: string;
             dietaryRestrictions?: string;
@@ -554,7 +542,7 @@ export interface operations {
         };
         responses: {
             /** @description Application created successfully */
-            200: {
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -700,6 +688,15 @@ export interface operations {
         responses: {
             /** @description Application submitted successfully */
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["Application"];
+                };
+            };
+            /** @description Application missing required acknowledgements */
+            400: {
                 headers: {
                     [name: string]: unknown;
                 };

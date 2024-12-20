@@ -2,7 +2,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@bifrost/ui/ui/card";
 import { Input } from "@bifrost/ui/ui/input";
 
 import { useForm } from "@bifrost/lib/hooks/useForm";
-import { applicationSchema } from "~/lib/schemas";
+import {
+  applicationSchema,
+  ethnicity,
+  gender,
+  grades,
+  tShirtSize,
+} from "~/lib/schemas";
 import { Separator } from "@bifrost/ui/ui/separator";
 import { Textarea } from "@bifrost/ui/ui/textarea";
 import { Checkbox } from "@bifrost/ui/ui/checkbox";
@@ -15,7 +21,7 @@ import {
 } from "@bifrost/ui/ui/select";
 
 import {
-  Form,
+  FormProvider,
   FormControl,
   FormDescription,
   FormField,
@@ -24,20 +30,43 @@ import {
   FormMessage,
 } from "@bifrost/ui/ui/form";
 import { Button } from "@bifrost/ui/ui/button";
+import { Form, useSubmit } from "@remix-run/react";
 
 import { useFieldArray } from "react-hook-form";
 import { useLoaderData } from "@remix-run/react";
-import { data, LoaderFunctionArgs } from "@remix-run/node";
-import { getSession } from "~/services/session.server";
+import { LoaderFunctionArgs } from "@remix-run/node";
+import { getClient } from "~/services/api.server";
+
+export async function action({ request }: LoaderFunctionArgs) {
+  const formData = await request.formData();
+  const body = Object.fromEntries(formData.entries());
+  const client = await getClient(request);
+
+  const intent = formData.get("submit") ? "submit" : "save";
+  if (intent === "save") {
+    // check if the application already exists
+    const { response } = await client.GET("/api/applications");
+    if (response.status === 200) {
+      await client.PUT("/api/applications", { body });
+    } else {
+      await client.POST("/api/applications", { body });
+    }
+  } else {
+    // one last save before submitting
+    await client.PUT("/api/applications", { body });
+    await client.POST("/api/applications/submit");
+  }
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const session = await getSession(request.headers.get("cookie"));
-  const user = session.get("info");
-  return { user };
+  const client = await getClient(request);
+  const application = await client.GET("/api/applications");
+  return { application: application.data };
 }
 
 export default function Page() {
   const data = useLoaderData<typeof loader>();
+  const submit = useSubmit();
 
   const form = useForm({
     schema: applicationSchema,
@@ -48,29 +77,33 @@ export default function Page() {
       school: "",
       age: undefined,
       city: "",
-      designPortfolio: "",
+      designPortfolio: undefined,
       dietaryRestrictions: "",
       essayQuestion1: "",
       ethnicity: undefined,
       gender: undefined,
-      github: "",
+      githubUrl: undefined,
       grade: undefined,
       major: "",
-      linkedin: "",
+      linkedinUrl: undefined,
       previousProgrammingExperience: false,
       programmingLanguages: [],
       relevantCoursework: [],
-      resume: "",
+      // resume: undefined,
       tshirtSize: undefined,
       travelReimbursementAcknowledgement: false,
       photoReleaseAcknowledgement: false,
-      accessibilityNeeds: "",
+      accessibilityNeeds: undefined,
       codeOfConductAcknowledgement: false,
       privacyPolicyAcknowledgement: false,
       termsAndConditionsAcknowledgement: false,
-      travelReimbursementDetails: "",
+      travelReimbursementDetails: undefined,
     },
   });
+
+  const onSubmit = form.handleSubmit((data) => {
+    submit(data, { method: "POST", replace: true });
+  }, console.error);
 
   return (
     <main className="min-h-screen">
@@ -81,8 +114,8 @@ export default function Page() {
             <Separator className="my-4 bg-primary" />
           </CardHeader>
           <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(console.log, console.error)}>
+            <FormProvider {...form}>
+              <Form method="POST" onSubmit={onSubmit}>
                 <div className="text-xl font-bold">Personal Info</div>
                 <div className="grid grid-cols-2 gap-2 m-4">
                   <div className="col-span-2">
@@ -141,14 +174,29 @@ export default function Page() {
                       )}
                     />
                   </div>
+
                   <FormField
-                    control={form.control}
                     name="grade"
+                    control={form.control}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Grade*</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="bg-background">
+                              <SelectValue placeholder="Select your current grade" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {grades.map((grade) => (
+                                <SelectItem key={grade} value={grade}>
+                                  {grade}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -168,26 +216,54 @@ export default function Page() {
                     )}
                   />
                   <FormField
-                    control={form.control}
                     name="gender"
+                    control={form.control}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Gender*</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="bg-background">
+                              <SelectValue placeholder="Select your gender" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {gender.map((o) => (
+                                <SelectItem key={o} value={o}>
+                                  {o}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   <FormField
-                    control={form.control}
                     name="ethnicity"
+                    control={form.control}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Ethnicity*</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <SelectTrigger className="bg-background">
+                              <SelectValue placeholder="Select your ethnicity" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {ethnicity.map((o) => (
+                                <SelectItem key={o} value={o}>
+                                  {o}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -390,6 +466,69 @@ export default function Page() {
                     />
                   </div>
                 </div>
+                <div className="text-xl font-bold">Portfolio</div>
+                <div className="grid grid-cols-2 gap-2 m-4">
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="linkedinUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>LinkedIn URL</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <FormField
+                      control={form.control}
+                      name="githubUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Github URL</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-1">
+                    <FormField
+                      control={form.control}
+                      name="designPortfolio"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Design Portfolio URL</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="resumeUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Attach Resume</FormLabel>
+                          <FormControl>
+                            <Input type="file" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
                 <div className="text-xl font-bold">Additional Information</div>
                 <div className="grid grid-cols-2 gap-2 m-4">
                   <FormField
@@ -420,12 +559,11 @@ export default function Page() {
                               <SelectValue placeholder="Select your size" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="XS">XS</SelectItem>
-                              <SelectItem value="S">S</SelectItem>
-                              <SelectItem value="M">M</SelectItem>
-                              <SelectItem value="L">L</SelectItem>
-                              <SelectItem value="XL">XL</SelectItem>
-                              <SelectItem value="XXL">XXL</SelectItem>
+                              {tShirtSize.map((size) => (
+                                <SelectItem key={size} value={size}>
+                                  {size}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                         </FormControl>
@@ -586,21 +724,13 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="flex justify-end space-x-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => {
-                      const draftData = form.getValues(); // Retrieve current form state
-                      console.log("Saved Draft Data:", draftData);
-                      // Add save-specific logic here (e.g., API call to save draft)
-                    }}
-                  >
+                  <Button variant="outline" name="save">
                     Save
                   </Button>
-                  <Button type="submit">Submit</Button>
+                  <Button name="submit">Submit</Button>
                 </div>
-              </form>
-            </Form>
+              </Form>
+            </FormProvider>
           </CardContent>
         </Card>
       </div>
