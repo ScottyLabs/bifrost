@@ -52,10 +52,6 @@ class ApplicationService(
       accessibilityNeeds = request.accessibilityNeeds,
       travelReimbursementAcknowledgement = request.travelReimbursementAcknowledgement,
       travelReimbursementDetails = request.travelReimbursementDetails,
-      codeOfConductAcknowledgement = request.codeOfConductAcknowledgement,
-      privacyPolicyAcknowledgement = request.privacyPolicyAcknowledgement,
-      termsAndConditionsAcknowledgement = request.termsAndConditionsAcknowledgement,
-      photoReleaseAcknowledgement = request.photoReleaseAcknowledgement
     )
 
     return applicationRepository.save(application)
@@ -93,10 +89,6 @@ class ApplicationService(
       accessibilityNeeds = request.accessibilityNeeds
       travelReimbursementAcknowledgement = request.travelReimbursementAcknowledgement
       travelReimbursementDetails = request.travelReimbursementDetails
-      codeOfConductAcknowledgement = request.codeOfConductAcknowledgement
-      privacyPolicyAcknowledgement = request.privacyPolicyAcknowledgement
-      termsAndConditionsAcknowledgement = request.termsAndConditionsAcknowledgement
-      photoReleaseAcknowledgement = request.photoReleaseAcknowledgement
     }
 
     return applicationRepository.save(application)
@@ -110,18 +102,7 @@ class ApplicationService(
       return null
     }
 
-    if (!validateApplicationForSubmission(application)) {
-      return null
-    }
-
     application.status = ApplicationStatus.SUBMITTED
     return applicationRepository.save(application)
-  }
-
-  private fun validateApplicationForSubmission(application: Application): Boolean {
-    return application.codeOfConductAcknowledgement &&
-      application.privacyPolicyAcknowledgement &&
-      application.termsAndConditionsAcknowledgement &&
-      application.photoReleaseAcknowledgement
   }
 }

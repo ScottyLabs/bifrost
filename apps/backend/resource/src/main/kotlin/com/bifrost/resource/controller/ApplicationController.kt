@@ -91,8 +91,8 @@ data class ApplicationRequest(
   val programmingLanguages: List<String>,
   val previousProgrammingExperience: Boolean,
   val essayQuestion1: String,
-  val githubUrl: String,
-  val linkedinUrl: String,
+  val githubUrl: String?,
+  val linkedinUrl: String?,
   val resumeUrl: String,
   val designPortfolioUrl: String?,
   val dietaryRestrictions: String?,
@@ -100,9 +100,6 @@ data class ApplicationRequest(
   val accessibilityNeeds: String?,
   val travelReimbursementAcknowledgement: Boolean,
   val travelReimbursementDetails: String?,
-  val codeOfConductAcknowledgement: Boolean,
-  val privacyPolicyAcknowledgement: Boolean,
-  val termsAndConditionsAcknowledgement: Boolean,
   val photoReleaseAcknowledgement: Boolean
 )
 

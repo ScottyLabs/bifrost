@@ -69,11 +69,9 @@ data class Application(
   @Column(columnDefinition = "TEXT")
   var essayQuestion1: String,
 
-  @Column(nullable = false)
-  var githubUrl: String,
+  var githubUrl: String? = null,
 
-  @Column(nullable = false)
-  var linkedinUrl: String,
+  var linkedinUrl: String? = null,
 
   @Column(nullable = false)
   var resumeUrl: String,
@@ -92,18 +90,6 @@ data class Application(
   var travelReimbursementAcknowledgement: Boolean = false,
 
   var travelReimbursementDetails: String? = null,
-
-  @Column(nullable = false)
-  var codeOfConductAcknowledgement: Boolean = false,
-
-  @Column(nullable = false)
-  var privacyPolicyAcknowledgement: Boolean = false,
-
-  @Column(nullable = false)
-  var termsAndConditionsAcknowledgement: Boolean = false,
-
-  @Column(nullable = false)
-  var photoReleaseAcknowledgement: Boolean = false,
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
@@ -135,13 +121,12 @@ enum class Gender {
 }
 
 enum class Ethnicity {
-  WHITE,
-  BLACK,
-  ASIAN,
-  HISPANIC,
   NATIVE_AMERICAN,
-  PACIFIC_ISLANDER,
-  OTHER,
+  ASIAN_PACIFIC_ISLANDER,
+  BLACK_AFRICAN_AMERICAN,
+  HISPANIC_LATINO,
+  WHITE_CAUCASIAN,
+  MULTIPLE_OTHER,
   PREFER_NOT_TO_SAY
 }
 
