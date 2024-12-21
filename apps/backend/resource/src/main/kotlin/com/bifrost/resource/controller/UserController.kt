@@ -23,7 +23,7 @@ class UserController(
     authentication: JwtAuthenticationToken
   ): User {
     val externalId = authentication.token.subject
-    println("Getting current user")
+    logger.info("Getting user by external ID: $externalId")
     return userService.getUserByExternalId(externalId)
   }
 
