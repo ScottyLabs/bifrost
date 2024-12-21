@@ -8,7 +8,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const session = await getSession(request.headers.get("cookie"));
   const info = session.get("info");
 
+  console.log(info);
+
   if (!info) {
+    console.log("Redirecting to /auth/login");
     throw redirect("/auth/login");
   }
 

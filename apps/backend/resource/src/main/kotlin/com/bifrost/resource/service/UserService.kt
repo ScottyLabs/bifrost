@@ -21,15 +21,18 @@ class UserService(
   }
 
   fun getUserByExternalId(externalId: String): User {
+    println("Getting user by external ID: $externalId")
     return userRepository.findByExternalId(externalId)
       ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
   }
 
   @Transactional
   fun createUser(user: User): User {
+    println("Creating user: $user")
     if (userRepository.existsByExternalId(user.externalId)) {
       throw ResponseStatusException(HttpStatus.CONFLICT, "External ID already exists")
     }
+    println("Creating user: $user")
     return userRepository.save(user)
   }
 

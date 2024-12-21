@@ -6,6 +6,8 @@ import { sessionStorage } from "~/services/session.server";
 
 export async function action({ request }: ActionFunctionArgs) {
   await authenticator.authenticate("oidc", request);
+  console.info("authenticated, redirecting to /");
+  return redirect("/");
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -13,6 +15,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     request.headers.get("cookie"),
   );
   const info = session.get("info");
-  if (info) throw redirect("/");
+  if (info) {
+    console.info("info from session present, redirecting to /", info);
+    throw redirect("/");
+  }
+
+  console.info("info from session not present, authenticating");
   await authenticator.authenticate("oidc", request);
+  return redirect("/");
 }
