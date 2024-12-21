@@ -46,7 +46,7 @@ class WebhookController(
         User(
           externalId = userId
         )
-      );
+      )
 
       logger.info("User saved successfully")
     }

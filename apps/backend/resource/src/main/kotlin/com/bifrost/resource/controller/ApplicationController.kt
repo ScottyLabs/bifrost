@@ -8,8 +8,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
@@ -30,7 +32,7 @@ class ApplicationController(
       ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found")
   }
 
-  @PostMapping
+  @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
   @Operation(summary = "Create new application")
   @ApiResponse(responseCode = "201", description = "Application created successfully")
   @ApiResponse(responseCode = "409", description = "Application already exists")
@@ -41,7 +43,6 @@ class ApplicationController(
     val subject = authentication.token.subject
     val user = userService.getUserByExternalId(subject)
     return applicationService.createApplication(user.id, request)
-      ?: throw ResponseStatusException(HttpStatus.CONFLICT, "Application already exists")
   }
 
   @PutMapping
@@ -56,7 +57,6 @@ class ApplicationController(
     val subject = authentication.token.subject
     val user = userService.getUserByExternalId(subject)
     return applicationService.updateApplication(user.id, request)
-      ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found or not in DRAFT status")
   }
 
   @PostMapping("/submit")
@@ -77,29 +77,28 @@ class ApplicationController(
 }
 
 data class ApplicationRequest(
-  val name: String,
-  val email: String,
-  val phone: String,
-  val school: String,
-  val grade: Grade,
-  val age: Int,
-  val gender: Gender,
-  val ethnicity: Ethnicity,
-  val city: String,
-  val major: String,
-  val relevantCoursework: List<String>,
-  val programmingLanguages: List<String>,
-  val previousProgrammingExperience: Boolean,
-  val essayQuestion1: String,
-  val githubUrl: String?,
-  val linkedinUrl: String?,
-  val resumeUrl: String,
-  val designPortfolioUrl: String?,
-  val dietaryRestrictions: String?,
-  val tshirtSize: TShirtSize,
-  val accessibilityNeeds: String?,
-  val travelReimbursementAcknowledgement: Boolean,
-  val travelReimbursementDetails: String?,
-  val photoReleaseAcknowledgement: Boolean
+  val name: String? = null,
+  val email: String? = null,
+  val phone: String? = null,
+  val school: String? = null,
+  val grade: Grade? = null,
+  val age: Int? = null,
+  val gender: Gender? = null,
+  val ethnicity: Ethnicity? = null,
+  val city: String? = null,
+  val major: String? = null,
+  val relevantCoursework: List<String>? = null,
+  val programmingLanguages: List<String>? = null,
+  val previousProgrammingExperience: Boolean? = null,
+  val essayQuestion1: String? = null,
+  val resume: MultipartFile? = null,
+  val githubUrl: String? = null,
+  val linkedinUrl: String? = null,
+  val personalWebsiteUrl: String? = null,
+  val dietaryRestrictions: String? = null,
+  val tshirtSize: TShirtSize? = null,
+  val accessibilityNeeds: String? = null,
+  val travelReimbursementAcknowledgement: Boolean? = null,
+  val travelReimbursementDetails: String? = null,
+  val photoReleaseAcknowledgement: Boolean? = null
 )
-

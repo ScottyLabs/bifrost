@@ -12,25 +12,23 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
-
-  // For Swagger docs
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-
-  // Database
   implementation("org.liquibase:liquibase-core")
-  runtimeOnly("org.postgresql:postgresql")
-
+  implementation(platform("software.amazon.awssdk:bom:2.21.0"))
+  implementation("software.amazon.awssdk:s3")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+  implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+  implementation("org.glassfish:jakarta.el:4.0.2")
+
+  runtimeOnly("org.postgresql:postgresql")
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.security:spring-security-test")
 
-  //  dev
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 }

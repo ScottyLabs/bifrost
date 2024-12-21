@@ -1,108 +1,161 @@
 package com.bifrost.resource.model
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
+import org.hibernate.validator.constraints.URL
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
 @Table(name = "applications")
-data class Application(
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "status", discriminatorType = DiscriminatorType.STRING)
+sealed class Application(
+  @Id @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID = UUID.randomUUID(),
 
-  @OneToOne
-  @JoinColumn(name = "user_id", nullable = false)
-  var user: User,
+  @OneToOne @JoinColumn(name = "user_id", nullable = false)
+  val user: User,
 
-  @Column(nullable = false)
-  var name: String,
+  @Size(min = 2, max = 100)
+  var name: String? = null,
 
-  @Column(nullable = false)
-  var email: String,
+  @Email
+  var email: String? = null,
 
-  @Column(nullable = false)
-  var phone: String,
+  @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$")
+  var phone: String? = null,
 
-  @Column(nullable = false)
-  var school: String,
-
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
-  var grade: Grade,
-
-  @Column(nullable = false)
-  var age: Int,
+  @Size(min = 2, max = 100)
+  var school: String? = null,
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
-  var gender: Gender,
+  var grade: Grade? = null,
+
+  @Min(13) @Max(100)
+  var age: Int? = null,
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
-  var ethnicity: Ethnicity,
+  var gender: Gender? = null,
 
-  @Column(nullable = false)
-  var city: String,
+  @Enumerated(EnumType.STRING)
+  var ethnicity: Ethnicity? = null,
 
-  @Column(nullable = false)
-  var major: String,
+  @Size(min = 2, max = 100)
+  var city: String? = null,
+
+  @Size(min = 2, max = 100)
+  var major: String? = null,
 
   @ElementCollection
-  @CollectionTable(
-    name = "application_coursework",
-    joinColumns = [JoinColumn(name = "application_id")]
-  )
+  @CollectionTable(name = "application_coursework", joinColumns = [JoinColumn(name = "application_id")])
   var relevantCoursework: Set<String> = setOf(),
 
   @ElementCollection
-  @CollectionTable(
-    name = "application_programming_languages",
-    joinColumns = [JoinColumn(name = "application_id")]
-  )
+  @CollectionTable(name = "application_programming_languages", joinColumns = [JoinColumn(name = "application_id")])
   var programmingLanguages: Set<String> = setOf(),
 
-  @Column(nullable = false)
-  var previousProgrammingExperience: Boolean,
+  var previousProgrammingExperience: Boolean? = null,
 
   @Column(columnDefinition = "TEXT")
-  var essayQuestion1: String,
+  @Size(min = 100, max = 5000)
+  var essayQuestion1: String? = null,
 
+  @URL
   var githubUrl: String? = null,
 
+  @URL
   var linkedinUrl: String? = null,
 
-  @Column(nullable = false)
-  var resumeUrl: String,
+  var resumeUrl: String? = null,
 
-  var designPortfolioUrl: String? = null,
+  @URL
+  var personalWebsiteUrl: String? = null,
 
+  @Size(max = 500)
   var dietaryRestrictions: String? = null,
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
-  var tshirtSize: TShirtSize,
+  var tshirtSize: TShirtSize? = null,
 
+  @Size(max = 500)
   var accessibilityNeeds: String? = null,
 
-  @Column(nullable = false)
   var travelReimbursementAcknowledgement: Boolean = false,
 
+  @Size(max = 1000)
   var travelReimbursementDetails: String? = null,
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column(nullable = false, insertable = false, updatable = false)
   var status: ApplicationStatus = ApplicationStatus.DRAFT,
 
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
-  var createdAt: Date = Date(),
+  val createdAt: LocalDateTime = LocalDateTime.now(),
 
   @UpdateTimestamp
   @Column(nullable = false)
-  var updatedAt: Date = Date()
+  var updatedAt: LocalDateTime = LocalDateTime.now(),
+
+  @Version
+  var version: Long = 0
 )
+
+@Entity
+@DiscriminatorValue("DRAFT")
+class DraftApplication(
+  user: User
+) : Application(user = user)
+
+@Entity
+@DiscriminatorValue("SUBMITTED")
+class SubmittedApplication private constructor(
+  draft: DraftApplication,
+  val submittedAt: LocalDateTime = LocalDateTime.now()
+) : Application(
+  user = draft.user,
+  name = requireNotNull(draft.name) { "Name is required" },
+  email = requireNotNull(draft.email) { "Email is required" },
+  phone = requireNotNull(draft.phone) { "Phone is required" },
+  school = requireNotNull(draft.school) { "School is required" },
+  grade = requireNotNull(draft.grade) { "Grade is required" },
+  age = requireNotNull(draft.age) { "Age is required" },
+  gender = requireNotNull(draft.gender) { "Gender is required" },
+  ethnicity = requireNotNull(draft.ethnicity) { "Ethnicity is required" },
+  city = requireNotNull(draft.city) { "City is required" },
+  major = requireNotNull(draft.major) { "Major is required" },
+  relevantCoursework = draft.relevantCoursework,
+  programmingLanguages = draft.programmingLanguages,
+  previousProgrammingExperience = requireNotNull(draft.previousProgrammingExperience) { "Previous programming experience is required" },
+  essayQuestion1 = requireNotNull(draft.essayQuestion1) { "Essay question must be answered" },
+  resumeUrl = requireNotNull(draft.resumeUrl) { "Resume is required" },
+  githubUrl = draft.githubUrl,
+  linkedinUrl = draft.linkedinUrl,
+  personalWebsiteUrl = draft.personalWebsiteUrl,
+  dietaryRestrictions = draft.dietaryRestrictions,
+  tshirtSize = requireNotNull(draft.tshirtSize) { "T-shirt size is required" },
+  accessibilityNeeds = draft.accessibilityNeeds,
+  travelReimbursementAcknowledgement = draft.travelReimbursementAcknowledgement.also {
+    require(it) { "Travel reimbursement acknowledgement is required" }
+  },
+  travelReimbursementDetails = draft.travelReimbursementDetails
+) {
+  companion object {
+    fun from(draft: DraftApplication): SubmittedApplication = SubmittedApplication(draft)
+  }
+}
+
+enum class ApplicationStatus {
+  DRAFT,
+  SUBMITTED,
+  ACCEPTED,
+  REJECTED,
+  WAITLISTED,
+  WITHDRAWN
+}
 
 enum class Grade {
   FRESHMAN,
@@ -138,13 +191,3 @@ enum class TShirtSize {
   XL,
   XXL
 }
-
-enum class ApplicationStatus {
-  DRAFT,
-  SUBMITTED,
-  ACCEPTED,
-  REJECTED,
-  WAITLISTED,
-  WITHDRAWN
-}
-

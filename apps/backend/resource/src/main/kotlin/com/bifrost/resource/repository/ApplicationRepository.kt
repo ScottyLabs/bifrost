@@ -12,4 +12,5 @@ interface ApplicationRepository : JpaRepository<Application, UUID> {
   fun findByStatus(status: ApplicationStatus): List<Application>
   fun findByEmail(email: String): Application?
   fun existsByEmail(email: String): Boolean
+  fun existsByUserId(userId: UUID): Boolean
 }
