@@ -102,7 +102,6 @@ data class ApplicationRequest(
   val accessibilityNeeds: String? = null,
   val travelReimbursementAcknowledgement: Boolean? = null,
   val travelReimbursementDetails: String? = null,
-  val codeOfConductAcknowledgement: Boolean? = null,
   val photoReleaseAcknowledgement: Boolean? = null,
   val mlhCodeOfConductAcknowledgement: Boolean? = null,
   val mlhPrivacyPolicyAcknowledgement: Boolean? = null,
