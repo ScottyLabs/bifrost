@@ -575,6 +575,7 @@
           "age",
           "city",
           "createdAt",
+          "codeOfConductAcknowledgement",
           "email",
           "essayQuestion1",
           "ethnicity",
@@ -582,8 +583,11 @@
           "grade",
           "id",
           "major",
+          "mlhCodeOfConductAcknowledgement",
+          "mlhTermsAndConditionsAcknowledgement",
           "name",
           "phone",
+          "photoReleaseAcknowledgement",
           "previousProgrammingExperience",
           "programmingLanguages",
           "relevantCoursework",
@@ -700,6 +704,18 @@
           },
           "travelReimbursementDetails": {
             "type": "string"
+          },
+          "codeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "photoReleaseAcknowledgement": {
+            "type": "boolean"
+          },
+          "mlhCodeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "mlhTermsAndConditionsAcknowledgement": {
+            "type": "boolean"
           },
           "status": {
             "type": "string",
@@ -848,12 +864,15 @@
         "required": [
           "age",
           "city",
+          "codeOfConductAcknowledgement",
           "email",
           "essayQuestion1",
           "ethnicity",
           "gender",
           "grade",
           "major",
+          "mlhCodeOfConductAcknowledgement",
+          "mlhTermsAndConditionsAcknowledgement",
           "name",
           "phone",
           "photoReleaseAcknowledgement",
@@ -961,6 +980,15 @@
           },
           "travelReimbursementDetails": {
             "type": "string"
+          },
+          "codeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "mlhCodeOfConductAcknowledgement": {
+            "type": "boolean"
+          },
+          "mlhTermsAndConditionsAcknowledgement": {
+            "type": "boolean"
           },
           "photoReleaseAcknowledgement": {
             "type": "boolean"
