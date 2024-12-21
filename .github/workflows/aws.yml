@@ -74,7 +74,9 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         cd apps/backend
-        docker compose up --build --no-start 
+        docker compose up --build
+        docker exec bifrost-resource-app tree
+        docker stop bifrost-resource-app
         docker tag bifrost-resource-app $ECR_REGISTRY/$ECR_REPOSITORY:latest
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
