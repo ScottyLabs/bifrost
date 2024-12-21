@@ -220,10 +220,6 @@ export interface components {
             accessibilityNeeds?: string;
             travelReimbursementAcknowledgement: boolean;
             travelReimbursementDetails?: string;
-            codeOfConductAcknowledgement: boolean;
-            privacyPolicyAcknowledgement: boolean;
-            termsAndConditionsAcknowledgement: boolean;
-            photoReleaseAcknowledgement: boolean;
             /** @enum {string} */
             status: "DRAFT" | "SUBMITTED" | "ACCEPTED" | "REJECTED" | "WAITLISTED" | "WITHDRAWN";
             /** Format: date-time */
@@ -295,9 +291,6 @@ export interface components {
             accessibilityNeeds?: string;
             travelReimbursementAcknowledgement: boolean;
             travelReimbursementDetails?: string;
-            codeOfConductAcknowledgement: boolean;
-            privacyPolicyAcknowledgement: boolean;
-            termsAndConditionsAcknowledgement: boolean;
             photoReleaseAcknowledgement: boolean;
         };
         RegistrationWebhookPayload: {

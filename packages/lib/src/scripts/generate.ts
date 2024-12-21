@@ -6,8 +6,8 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Define paths
-const specsDir = join(__dirname, "../specs");
-const outputDir = join(__dirname, "../api");
+const specsDir = join(__dirname, "../api/specs");
+const outputDir = join(__dirname, "../api/types");
 
 // Ensure the output directory exists
 if (!existsSync(outputDir)) {
@@ -22,7 +22,7 @@ specFiles.forEach((spec) => {
   const outputPath = join(outputDir, spec.replace(".json", ".d.ts"));
 
   console.log(`Generating types for ${spec}...`);
-  execSync(`npx openapi-typescript ${inputPath} -o ${outputPath}`, {
+  execSync(`pnpx openapi-typescript ${inputPath} -o ${outputPath}`, {
     stdio: "inherit",
   });
 });
