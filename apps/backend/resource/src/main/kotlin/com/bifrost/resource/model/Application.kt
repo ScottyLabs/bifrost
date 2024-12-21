@@ -20,7 +20,10 @@ sealed class Application(
   val user: User,
 
   @Size(min = 2, max = 100)
-  var name: String? = null,
+  var first_name: String? = null,
+
+  @Size(min = 2, max = 100)
+  var last_name: String? = null,
 
   @Email
   var email: String? = null,
@@ -45,6 +48,9 @@ sealed class Application(
 
   @Size(min = 2, max = 100)
   var city: String? = null,
+
+  @Enumerated(EnumType.STRING)
+  var country: Country? = null,
 
   @Size(min = 2, max = 100)
   var major: String? = null,
@@ -88,6 +94,9 @@ sealed class Application(
   @Size(max = 1000)
   var travelReimbursementDetails: String? = null,
 
+  @Column(nullable = false)
+  var mlhEmailSubscription : Boolean = false,
+
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, insertable = false, updatable = false)
   var status: ApplicationStatus = ApplicationStatus.DRAFT,
@@ -117,15 +126,17 @@ class SubmittedApplication private constructor(
   val submittedAt: LocalDateTime = LocalDateTime.now()
 ) : Application(
   user = draft.user,
-  name = requireNotNull(draft.name) { "Name is required" },
+  first_name = requireNotNull(draft.first_name) { "First name is required" },
+  last_name = requireNotNull(draft.last_name) { "Last name is required" },
+  age = requireNotNull(draft.age) { "Age is required" },
   email = requireNotNull(draft.email) { "Email is required" },
   phone = requireNotNull(draft.phone) { "Phone is required" },
   school = requireNotNull(draft.school) { "School is required" },
   grade = requireNotNull(draft.grade) { "Grade is required" },
-  age = requireNotNull(draft.age) { "Age is required" },
   gender = requireNotNull(draft.gender) { "Gender is required" },
   ethnicity = requireNotNull(draft.ethnicity) { "Ethnicity is required" },
   city = requireNotNull(draft.city) { "City is required" },
+  country = requireNotNull(draft.country) { "Country is required" },
   major = requireNotNull(draft.major) { "Major is required" },
   relevantCoursework = draft.relevantCoursework,
   programmingLanguages = draft.programmingLanguages,
@@ -141,7 +152,8 @@ class SubmittedApplication private constructor(
   travelReimbursementAcknowledgement = draft.travelReimbursementAcknowledgement.also {
     require(it) { "Travel reimbursement acknowledgement is required" }
   },
-  travelReimbursementDetails = draft.travelReimbursementDetails
+  travelReimbursementDetails = draft.travelReimbursementDetails,
+  mlhEmailSubscription = draft.mlhEmailSubscription
 ) {
   companion object {
     fun from(draft: DraftApplication): SubmittedApplication = SubmittedApplication(draft)
@@ -190,4 +202,8 @@ enum class TShirtSize {
   L,
   XL,
   XXL
+}
+
+enum class Country {
+  ABW, AFG, AGO, AIA, ALA, ALB, AND, ARE, ARG, ARM, ASM, ATA, ATF, ATG, AUS, AUT, AZE, BDI, BEL, BEN, BES, BFA, BGD, BGR, BHR, BHS, BIH, BLM, BLR, BLZ, BMU, BOL, BRA, BRB, BRN, BTN, BVT, BWA, CAF, CAN, CCK, CHE, CHL, CHN, CIV, CMR, COD, COG, COK, COL, COM, CPV, CRI, CUB, CUW, CXR, CYM, CYP, CZE, DEU, DJI, DMA, DNK, DOM, DZA, ECU, EGY, ERI, ESH, ESP, EST, ETH, FIN, FJI, FLK, FRA, FRO, FSM, GAB, GBR, GEO, GGY, GHA, GIB, GIN, GLP, GMB, GNB, GNQ, GRC, GRD, GRL, GTM, GUF, GUM, GUY, HKG, HMD, HND, HRV, HTI, HUN, IDN, IMN, IND, IOT, IRL, IRN, IRQ, ISL, ISR, ITA, JAM, JEY, JOR, JPN, KAZ, KEN, KGZ, KHM, KIR, KNA, KOR, KWT, LAO, LBN, LBR, LBY, LCA, LIE, LKA, LSO, LTU, LUX, LVA, MAC, MAF, MAR, MCO, MDA, MDG, MDV, MEX, MHL, MKD, MLI, MLT, MMR, MNE, MNG, MNP, MOZ, MRT, MSR, MTQ, MUS, MWI, MYS, MYT, NAM, NCL, NER, NFK, NGA, NIC, NIU, NLD, NOR, NPL, NRU, NZL, OMN, PAK, PAN, PCN, PER, PHL, PLW, PNG, POL, PRI, PRK, PRT, PRY, PSE, PYF, QAT, REU, ROU, RUS, RWA, SAU, SDN, SEN, SGP, SGS, SHN, SJM, SLB, SLE, SLV, SMR, SOM, SPM, SRB, SSD, STP, SUR, SVK, SVN, SWE, SWZ, SXM, SYC, SYR, TCA, TCD, TGO, THA, TJK, TKL, TKM, TLS, TON, TTO, TUN, TUR, TUV, TWN, TZA, UGA, UKR, UMI, URY, USA, UZB, VAT, VCT, VEN, VGB, VIR, VNM, VUT, WLF, WSM, YEM, ZAF, ZMB, ZWE, 
 }

@@ -67,15 +67,17 @@ class ApplicationService(
 
 
     application.apply {
-      request.name?.let { name = it }
+      request.first_name?.let { first_name = it }
+      request.last_name?.let { last_name = it }
+      request.age?.let { age = it }
       request.email?.let { email = it }
       request.phone?.let { phone = it }
       request.school?.let { school = it }
       request.grade?.let { grade = it }
-      request.age?.let { age = it }
       request.gender?.let { gender = it }
       request.ethnicity?.let { ethnicity = it }
       request.city?.let { city = it }
+      request.country?.let { country = it }
       request.major?.let { major = it }
       request.relevantCoursework?.let { relevantCoursework = it.toSet() }
       request.programmingLanguages?.let { programmingLanguages = it.toSet() }
@@ -89,6 +91,7 @@ class ApplicationService(
       request.accessibilityNeeds?.let { accessibilityNeeds = it }
       request.travelReimbursementAcknowledgement?.let { travelReimbursementAcknowledgement = it }
       request.travelReimbursementDetails?.let { travelReimbursementDetails = it }
+      request.mlhEmailSubscription?.let { mlhEmailSubscription = it }
     }
 
     return applicationRepository.save(application)

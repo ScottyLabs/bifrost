@@ -28,7 +28,7 @@ data class Team(
   @JoinColumn(name = "leader_id", nullable = false)
   var leader: User,
 
-  @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE])
   var members: Set<User> = setOf(),
 
   @Column(name = "is_open", nullable = false)

@@ -8,6 +8,8 @@ import {
   gender,
   grades,
   tShirtSize,
+  schools,
+  countries,
 } from "~/lib/schemas";
 import { Separator } from "@bifrost/ui/ui/separator";
 import { Textarea } from "@bifrost/ui/ui/textarea";
@@ -71,33 +73,37 @@ export default function Page() {
   const form = useForm({
     schema: applicationSchema,
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      school: "",
+      first_name: "",
+      last_name: "",
       age: undefined,
+      phone: "",
+      email: "",
+      school: undefined,
+      grade: undefined,
+      gender: undefined,
+      ethnicity: undefined,
       city: "",
+      country: undefined,
+      major: "",
+      relevantCoursework: [],
+      programmingLanguages: [],
+      previousProgrammingExperience: false,
+      essayQuestion1: "",
+      githubUrl: undefined,
+      linkedinUrl: undefined,
+      // resume: undefined,
+      resumeUrl: "",
       designPortfolio: undefined,
       dietaryRestrictions: "",
-      essayQuestion1: "",
-      ethnicity: undefined,
-      gender: undefined,
-      githubUrl: undefined,
-      grade: undefined,
-      major: "",
-      linkedinUrl: undefined,
-      previousProgrammingExperience: false,
-      programmingLanguages: [],
-      relevantCoursework: [],
-      // resume: undefined,
       tshirtSize: undefined,
-      travelReimbursementAcknowledgement: false,
-      photoReleaseAcknowledgement: false,
       accessibilityNeeds: undefined,
-      codeOfConductAcknowledgement: false,
-      privacyPolicyAcknowledgement: false,
-      termsAndConditionsAcknowledgement: false,
+      travelReimbursementAcknowledgement: false,
       travelReimbursementDetails: undefined,
+      codeOfConductAcknowledgement: false,
+      photoReleaseAcknowledgement: false,
+      mlhCodeOfConductAcknowledgement: false,
+      mlhTermsAndConditionsAcknowledgement: false,
+      mlhEmailSubscription: false,
     },
   });
 
@@ -121,7 +127,20 @@ export default function Page() {
                   <div className="col-span-2">
                     <FormField
                       control={form.control}
-                      name="name"
+                      name="first_name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Name*</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="last_name"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Name*</FormLabel>
@@ -135,12 +154,12 @@ export default function Page() {
                   </div>
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="age"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email*</FormLabel>
+                        <FormLabel>Age*</FormLabel>
                         <FormControl>
-                          <Input {...field} />
+                          <Input type="number" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -159,7 +178,20 @@ export default function Page() {
                       </FormItem>
                     )}
                   />
-                  <div className="col-span-2">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email*</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                 <div className="col-span-2">
                     <FormField
                       control={form.control}
                       name="school"
@@ -167,7 +199,21 @@ export default function Page() {
                         <FormItem>
                           <FormLabel>School*</FormLabel>
                           <FormControl>
-                            <Input {...field} />
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select your school" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {schools.map((school) => (
+                                  <SelectItem key={school} value={school}>
+                                    {school}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -202,20 +248,7 @@ export default function Page() {
                       </FormItem>
                     )}
                   />
-                  <FormField
-                    control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Age*</FormLabel>
-                        <FormControl>
-                          <Input type="number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
+                 <FormField
                     name="gender"
                     control={form.control}
                     render={({ field }) => (
@@ -278,6 +311,34 @@ export default function Page() {
                           <FormLabel>City*</FormLabel>
                           <FormControl>
                             <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="country"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Country*</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select your country of residence" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {countries.map((country) => (
+                                  <SelectItem key={country} value={country}>
+                                    {country}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -453,8 +514,8 @@ export default function Page() {
                             perspectives, backgrounds, and experiences are
                             crucial to building an environment where everyone is
                             empowered to bring their moonshot ideas to life. If
-                            you have a unique background that you’d like to
-                            share with us, please do so here! We’ll prioritize
+                            you have a unique background that you'd like to
+                            share with us, please do so here! We'll prioritize
                             bringing you to TartanHacks.
                           </FormDescription>
                           <FormControl>
@@ -471,21 +532,6 @@ export default function Page() {
                   <div className="col-span-2">
                     <FormField
                       control={form.control}
-                      name="linkedinUrl"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>LinkedIn URL</FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="col-span-1">
-                    <FormField
-                      control={form.control}
                       name="githubUrl"
                       render={({ field }) => (
                         <FormItem>
@@ -498,13 +544,13 @@ export default function Page() {
                       )}
                     />
                   </div>
-                  <div className="col-span-1">
+                  <div className="col-span-2">
                     <FormField
                       control={form.control}
-                      name="designPortfolio"
+                      name="linkedinUrl"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Design Portfolio URL</FormLabel>
+                          <FormLabel>LinkedIn URL</FormLabel>
                           <FormControl>
                             <Input {...field} />
                           </FormControl>
@@ -522,6 +568,21 @@ export default function Page() {
                           <FormLabel>Attach Resume</FormLabel>
                           <FormControl>
                             <Input type="file" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="designPortfolio"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Design Portfolio URL</FormLabel>
+                          <FormControl>
+                            <Input {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -652,51 +713,12 @@ export default function Page() {
                             <FormLabel>
                               Code of Conduct Acknowledgement
                             </FormLabel>
-                            <FormDescription>placeholder</FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <FormField
-                      control={form.control}
-                      name="privacyPolicyAcknowledgement"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Privacy Policy Acknowledgement
-                            </FormLabel>
-                            <FormDescription>placeholder</FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <FormField
-                      control={form.control}
-                      name="termsAndConditionsAcknowledgement"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>
-                              Terms and Conditions Acknowledgement
-                            </FormLabel>
-                            <FormDescription>placeholder</FormDescription>
+                            <FormDescription>
+                              I agree to adhere to the
+                              <a href="https://docs.google.com/document/d/1_fNz533Ryzw2pYhi9YJe9RC8LMglMvADdta5cexjInI/edit?usp=sharing">
+                                TartanHacks Code of Conduct*
+                              </a>
+                            </FormDescription>
                           </div>
                         </FormItem>
                       )}
@@ -717,6 +739,89 @@ export default function Page() {
                           <div className="space-y-1 leading-none">
                             <FormLabel>Photo Release Acknowledgement</FormLabel>
                             <FormDescription>placeholder</FormDescription>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="mlhCodeOfConductAcknowledgement"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel>MLH Code of Conduct Acknowledgement</FormLabel>
+                            <FormDescription>
+                              I have read and agree to the
+                              <a href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md">
+                                MLH Code of Conduct*
+                              </a>
+                            </FormDescription>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="mlhTermsAndConditionsAcknowledgement"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel>MLH Terms and Conditions & Privacy Policy Acknowledgement</FormLabel>
+                            <FormDescription>
+                              I authorize you to share my application/registration information
+                              with Major League Hacking for event administration,
+                              ranking, and MLH administration in-line with the
+                              <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md">
+                                MLH Privacy Policy
+                              </a>.
+                              I further agree to the terms of both the
+                              <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md">
+                                MLH Contest Terms and Conditions
+                              </a> and the
+                              <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md">
+                                MLH Privacy Policy
+                              </a>.
+                            </FormDescription>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="mlhEmailSubscription"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel>MLH Email Subscription</FormLabel>
+                            <FormDescription>
+                              I authorize MLH to send me occasional emails
+                              about relevant events, career opportunities,
+                              and community announcements.
+                            </FormDescription>
                           </div>
                         </FormItem>
                       )}

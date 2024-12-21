@@ -77,15 +77,17 @@ class ApplicationController(
 }
 
 data class ApplicationRequest(
-  val name: String? = null,
-  val email: String? = null,
+  val first_name: String? = null,
+  val last_name: String? = null,
+  val age: Int? = null,
   val phone: String? = null,
+  val email: String? = null,
   val school: String? = null,
   val grade: Grade? = null,
-  val age: Int? = null,
   val gender: Gender? = null,
   val ethnicity: Ethnicity? = null,
   val city: String? = null,
+  val country: Country? = null,
   val major: String? = null,
   val relevantCoursework: List<String>? = null,
   val programmingLanguages: List<String>? = null,
@@ -100,5 +102,9 @@ data class ApplicationRequest(
   val accessibilityNeeds: String? = null,
   val travelReimbursementAcknowledgement: Boolean? = null,
   val travelReimbursementDetails: String? = null,
-  val photoReleaseAcknowledgement: Boolean? = null
+  val codeOfConductAcknowledgement: Boolean? = null,
+  val photoReleaseAcknowledgement: Boolean? = null,
+  val mlhCodeOfConductAcknowledgement: Boolean? = null,
+  val mlhPrivacyPolicyAcknowledgement: Boolean? = null,
+  val mlhEmailSubscription: Boolean? = null,
 )

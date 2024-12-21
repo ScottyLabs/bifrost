@@ -574,7 +574,6 @@
         "required": [
           "age",
           "city",
-          "codeOfConductAcknowledgement",
           "createdAt",
           "email",
           "essayQuestion1",
@@ -585,15 +584,12 @@
           "major",
           "name",
           "phone",
-          "photoReleaseAcknowledgement",
           "previousProgrammingExperience",
-          "privacyPolicyAcknowledgement",
           "programmingLanguages",
           "relevantCoursework",
           "resumeUrl",
           "school",
           "status",
-          "termsAndConditionsAcknowledgement",
           "travelReimbursementAcknowledgement",
           "tshirtSize",
           "updatedAt",
@@ -704,18 +700,6 @@
           },
           "travelReimbursementDetails": {
             "type": "string"
-          },
-          "codeOfConductAcknowledgement": {
-            "type": "boolean"
-          },
-          "privacyPolicyAcknowledgement": {
-            "type": "boolean"
-          },
-          "termsAndConditionsAcknowledgement": {
-            "type": "boolean"
-          },
-          "photoReleaseAcknowledgement": {
-            "type": "boolean"
           },
           "status": {
             "type": "string",
@@ -864,7 +848,6 @@
         "required": [
           "age",
           "city",
-          "codeOfConductAcknowledgement",
           "email",
           "essayQuestion1",
           "ethnicity",
@@ -875,12 +858,10 @@
           "phone",
           "photoReleaseAcknowledgement",
           "previousProgrammingExperience",
-          "privacyPolicyAcknowledgement",
           "programmingLanguages",
           "relevantCoursework",
           "resumeUrl",
           "school",
-          "termsAndConditionsAcknowledgement",
           "travelReimbursementAcknowledgement",
           "tshirtSize"
         ],
@@ -980,15 +961,6 @@
           },
           "travelReimbursementDetails": {
             "type": "string"
-          },
-          "codeOfConductAcknowledgement": {
-            "type": "boolean"
-          },
-          "privacyPolicyAcknowledgement": {
-            "type": "boolean"
-          },
-          "termsAndConditionsAcknowledgement": {
-            "type": "boolean"
           },
           "photoReleaseAcknowledgement": {
             "type": "boolean"
