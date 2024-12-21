@@ -94,7 +94,6 @@ sealed class Application(
   @Size(max = 1000)
   var travelReimbursementDetails: String? = null,
 
-  @Column(nullable = false)
   var mlhEmailSubscription : Boolean = false,
 
   @Enumerated(EnumType.STRING)

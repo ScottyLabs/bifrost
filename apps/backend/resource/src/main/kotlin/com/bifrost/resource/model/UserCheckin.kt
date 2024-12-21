@@ -10,7 +10,7 @@ data class UserCheckin(
   @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID,
 
-  @ManyToOne(cascade = [CascadeType.REMOVE])
+  @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
   var user: User,
 
