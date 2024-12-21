@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Define paths
 const specsDir = join(__dirname, "../specs");
-const outputDir = join(__dirname, "../types");
+const outputDir = join(__dirname, "../api");
 
 // Ensure the output directory exists
 if (!existsSync(outputDir)) {
