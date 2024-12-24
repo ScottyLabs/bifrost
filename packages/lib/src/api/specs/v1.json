@@ -289,7 +289,7 @@
         "operationId": "createApplication",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/ApplicationRequest"
               }
@@ -572,28 +572,15 @@
     "schemas": {
       "Application": {
         "required": [
-          "age",
-          "city",
           "createdAt",
-          "email",
-          "essayQuestion1",
-          "ethnicity",
-          "gender",
-          "grade",
           "id",
-          "major",
-          "name",
-          "phone",
-          "previousProgrammingExperience",
           "programmingLanguages",
           "relevantCoursework",
-          "resumeUrl",
-          "school",
           "status",
           "travelReimbursementAcknowledgement",
-          "tshirtSize",
           "updatedAt",
-          "user"
+          "user",
+          "version"
         ],
         "type": "object",
         "properties": {
@@ -605,15 +592,20 @@
             "$ref": "#/components/schemas/User"
           },
           "name": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "email": {
             "type": "string"
           },
           "phone": {
+            "pattern": "^\\+?[1-9]\\d{1,14}$",
             "type": "string"
           },
           "school": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "grade": {
@@ -628,6 +620,8 @@
             ]
           },
           "age": {
+            "maximum": 100,
+            "minimum": 13,
             "type": "integer",
             "format": "int32"
           },
@@ -648,9 +642,13 @@
             ]
           },
           "city": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "major": {
+            "maxLength": 100,
+            "minLength": 2,
             "type": "string"
           },
           "relevantCoursework": {
@@ -670,7 +668,9 @@
           "previousProgrammingExperience": {
             "type": "boolean"
           },
-          "essayQuestion1": {
+          "statement": {
+            "maxLength": 5000,
+            "minLength": 100,
             "type": "string"
           },
           "githubUrl": {
@@ -682,10 +682,12 @@
           "resumeUrl": {
             "type": "string"
           },
-          "designPortfolioUrl": {
+          "personalWebsiteUrl": {
             "type": "string"
           },
           "dietaryRestrictions": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string"
           },
           "tshirtSize": {
@@ -693,12 +695,16 @@
             "enum": ["XS", "S", "M", "L", "XL", "XXL"]
           },
           "accessibilityNeeds": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string"
           },
           "travelReimbursementAcknowledgement": {
             "type": "boolean"
           },
           "travelReimbursementDetails": {
+            "maxLength": 1000,
+            "minLength": 0,
             "type": "string"
           },
           "status": {
@@ -719,6 +725,10 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -845,26 +855,6 @@
         }
       },
       "ApplicationRequest": {
-        "required": [
-          "age",
-          "city",
-          "email",
-          "essayQuestion1",
-          "ethnicity",
-          "gender",
-          "grade",
-          "major",
-          "name",
-          "phone",
-          "photoReleaseAcknowledgement",
-          "previousProgrammingExperience",
-          "programmingLanguages",
-          "relevantCoursework",
-          "resumeUrl",
-          "school",
-          "travelReimbursementAcknowledgement",
-          "tshirtSize"
-        ],
         "type": "object",
         "properties": {
           "name": {
@@ -931,8 +921,12 @@
           "previousProgrammingExperience": {
             "type": "boolean"
           },
-          "essayQuestion1": {
+          "statement": {
             "type": "string"
+          },
+          "resume": {
+            "type": "string",
+            "format": "binary"
           },
           "githubUrl": {
             "type": "string"
@@ -940,10 +934,7 @@
           "linkedinUrl": {
             "type": "string"
           },
-          "resumeUrl": {
-            "type": "string"
-          },
-          "designPortfolioUrl": {
+          "personalWebsiteUrl": {
             "type": "string"
           },
           "dietaryRestrictions": {

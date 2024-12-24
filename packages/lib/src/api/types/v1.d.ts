@@ -192,31 +192,31 @@ export interface components {
             /** Format: uuid */
             id: string;
             user: components["schemas"]["User"];
-            name: string;
-            email: string;
-            phone: string;
-            school: string;
+            name?: string;
+            email?: string;
+            phone?: string;
+            school?: string;
             /** @enum {string} */
-            grade: "FRESHMAN" | "SOPHOMORE" | "JUNIOR" | "SENIOR" | "GRADUATE" | "OTHER";
+            grade?: "FRESHMAN" | "SOPHOMORE" | "JUNIOR" | "SENIOR" | "GRADUATE" | "OTHER";
             /** Format: int32 */
-            age: number;
+            age?: number;
             /** @enum {string} */
-            gender: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
+            gender?: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
             /** @enum {string} */
-            ethnicity: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
-            city: string;
-            major: string;
+            ethnicity?: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
+            city?: string;
+            major?: string;
             relevantCoursework: string[];
             programmingLanguages: string[];
-            previousProgrammingExperience: boolean;
-            essayQuestion1: string;
+            previousProgrammingExperience?: boolean;
+            statement?: string;
             githubUrl?: string;
             linkedinUrl?: string;
-            resumeUrl: string;
-            designPortfolioUrl?: string;
+            resumeUrl?: string;
+            personalWebsiteUrl?: string;
             dietaryRestrictions?: string;
             /** @enum {string} */
-            tshirtSize: "XS" | "S" | "M" | "L" | "XL" | "XXL";
+            tshirtSize?: "XS" | "S" | "M" | "L" | "XL" | "XXL";
             accessibilityNeeds?: string;
             travelReimbursementAcknowledgement: boolean;
             travelReimbursementDetails?: string;
@@ -226,6 +226,8 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
+            /** Format: int64 */
+            version: number;
         };
         Team: {
             /** Format: uuid */
@@ -263,35 +265,36 @@ export interface components {
             isOpen?: boolean;
         };
         ApplicationRequest: {
-            name: string;
-            email: string;
-            phone: string;
-            school: string;
+            name?: string;
+            email?: string;
+            phone?: string;
+            school?: string;
             /** @enum {string} */
-            grade: "FRESHMAN" | "SOPHOMORE" | "JUNIOR" | "SENIOR" | "GRADUATE" | "OTHER";
+            grade?: "FRESHMAN" | "SOPHOMORE" | "JUNIOR" | "SENIOR" | "GRADUATE" | "OTHER";
             /** Format: int32 */
-            age: number;
+            age?: number;
             /** @enum {string} */
-            gender: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
+            gender?: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
             /** @enum {string} */
-            ethnicity: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
-            city: string;
-            major: string;
-            relevantCoursework: string[];
-            programmingLanguages: string[];
-            previousProgrammingExperience: boolean;
-            essayQuestion1: string;
+            ethnicity?: "NATIVE_AMERICAN" | "ASIAN_PACIFIC_ISLANDER" | "BLACK_AFRICAN_AMERICAN" | "HISPANIC_LATINO" | "WHITE_CAUCASIAN" | "MULTIPLE_OTHER" | "PREFER_NOT_TO_SAY";
+            city?: string;
+            major?: string;
+            relevantCoursework?: string[];
+            programmingLanguages?: string[];
+            previousProgrammingExperience?: boolean;
+            statement?: string;
+            /** Format: binary */
+            resume?: string;
             githubUrl?: string;
             linkedinUrl?: string;
-            resumeUrl: string;
-            designPortfolioUrl?: string;
+            personalWebsiteUrl?: string;
             dietaryRestrictions?: string;
             /** @enum {string} */
-            tshirtSize: "XS" | "S" | "M" | "L" | "XL" | "XXL";
+            tshirtSize?: "XS" | "S" | "M" | "L" | "XL" | "XXL";
             accessibilityNeeds?: string;
-            travelReimbursementAcknowledgement: boolean;
+            travelReimbursementAcknowledgement?: boolean;
             travelReimbursementDetails?: string;
-            photoReleaseAcknowledgement: boolean;
+            photoReleaseAcknowledgement?: boolean;
         };
         RegistrationWebhookPayload: {
             userId: string;
@@ -530,7 +533,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ApplicationRequest"];
+                "multipart/form-data": components["schemas"]["ApplicationRequest"];
             };
         };
         responses: {

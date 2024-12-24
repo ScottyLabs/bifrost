@@ -1,4 +1,4 @@
-import { paths } from "@bifrost/lib/api/v1";
+import { paths } from "@bifrost/lib/api";
 import createClient, { Middleware } from "openapi-fetch";
 import { commitSession, destroySession, getSession } from "./session.server";
 import { env } from "./env.server";
