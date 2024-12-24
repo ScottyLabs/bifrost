@@ -61,7 +61,7 @@ sealed class Application(
 
   @Column(columnDefinition = "TEXT")
   @Size(min = 100, max = 5000)
-  var essayQuestion1: String? = null,
+  var statement: String? = null,
 
   @URL
   var githubUrl: String? = null,
@@ -130,7 +130,7 @@ class SubmittedApplication private constructor(
   relevantCoursework = draft.relevantCoursework,
   programmingLanguages = draft.programmingLanguages,
   previousProgrammingExperience = requireNotNull(draft.previousProgrammingExperience) { "Previous programming experience is required" },
-  essayQuestion1 = requireNotNull(draft.essayQuestion1) { "Essay question must be answered" },
+  statement = requireNotNull(draft.statement) { "Essay question must be answered" },
   resumeUrl = requireNotNull(draft.resumeUrl) { "Resume is required" },
   githubUrl = draft.githubUrl,
   linkedinUrl = draft.linkedinUrl,

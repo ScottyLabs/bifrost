@@ -1,7 +1,5 @@
-import { components } from "@bifrost/lib/api/v1";
+import { components } from "@bifrost/lib/api";
 import z from "zod";
-
-type Application = components["schemas"]["ApplicationRequest"];
 
 export const gender = ["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"] as const;
 
@@ -41,11 +39,11 @@ export const applicationSchema = z
     relevantCoursework: z.array(z.string().min(1)),
     programmingLanguages: z.array(z.string().min(1)),
     previousProgrammingExperience: z.boolean(),
-    essayQuestion1: z.string(),
+    statement: z.string(),
     githubUrl: z.string().url().optional(),
     linkedinUrl: z.string().url().optional(),
-    resumeUrl: z.string().url(),
-    designPortfolio: z.string().url().optional(),
+    resume: z.instanceof(File, { message: "Resume must be a file" }),
+    personalWebsiteUrl: z.string().url().optional(),
     dietaryRestrictions: z.string().optional(),
     tshirtSize: z.enum(tShirtSize),
     accessibilityNeeds: z.string().optional(),
@@ -99,4 +97,4 @@ export const applicationSchema = z
         message: "You must provide travel reimbursement details",
       });
     }
-  }) satisfies z.ZodSchema<Application>;
+  });

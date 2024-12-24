@@ -69,10 +69,6 @@ class ApplicationController(
     val subject = authentication.token.subject
     val user = userService.getUserByExternalId(subject)
     return applicationService.submitApplication(user.id)
-      ?: throw ResponseStatusException(
-        HttpStatus.BAD_REQUEST,
-        "Application not found, not in DRAFT status, or missing required acknowledgements"
-      )
   }
 }
 
@@ -90,7 +86,7 @@ data class ApplicationRequest(
   val relevantCoursework: List<String>? = null,
   val programmingLanguages: List<String>? = null,
   val previousProgrammingExperience: Boolean? = null,
-  val essayQuestion1: String? = null,
+  val statement: String? = null,
   val resume: MultipartFile? = null,
   val githubUrl: String? = null,
   val linkedinUrl: String? = null,

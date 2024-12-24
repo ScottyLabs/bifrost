@@ -80,7 +80,7 @@ class ApplicationService(
       request.relevantCoursework?.let { relevantCoursework = it.toSet() }
       request.programmingLanguages?.let { programmingLanguages = it.toSet() }
       request.previousProgrammingExperience?.let { previousProgrammingExperience = it }
-      request.essayQuestion1?.let { essayQuestion1 = it }
+      request.statement?.let { statement = it }
       request.githubUrl?.let { githubUrl = it }
       request.linkedinUrl?.let { linkedinUrl = it }
       request.personalWebsiteUrl?.let { personalWebsiteUrl = it }

@@ -20,6 +20,13 @@ spring:
     livereload:
       enabled: true
 
+aws:
+  region: us-east-2
+  secret-access-key: secret-access-key
+  access-key-id: access-key-id
+  s3:
+    bucket: bifrost-resource
+
 logging:
   level:
     root: INFO
