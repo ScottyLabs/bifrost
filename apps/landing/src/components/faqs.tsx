@@ -44,7 +44,7 @@ function FAQList() {
     },
     {
       q: `Will TartanHacks provide travel reimbursements?`,
-      a: `We are offering travel reimbursements to a select number of students this year. To apply for a travel reimbursement, submit your application and indicate you would like to apply for a reimbursement by December 31st at the latest. Participants granted reimbursements will be notified the following week, and will have 7 days to submit their travel itinerary and receipts to the TartanHacks team.`
+      a: `We are offering travel reimbursements to a select number of students this year. To apply for a travel reimbursement, submit your application and indicate you would like to apply for a reimbursement by Friday, January 3rd at the latest. Participants granted reimbursements will be notified the following week, and will have 7 days to submit their travel itinerary and receipts to the TartanHacks team by Friday, January 10th.`
     },
     {
       q: `I'm not a CS major, can I still join?`,
@@ -92,7 +92,7 @@ function FAQList() {
       q: 'Will there be food?',
       a: `Yes!! There will be several meals provided, at no cost to participants including a Friday dinner, Midnight sweet treat, and breakfast, lunch, and dinner on Saturday. We will offer vegan, vegetarian, gluten-free, halal and kosher options for those with dietary restrictions.
       Refreshments such as bottled water, coffee, and energy drinks will also be offered in limited quantity.`,
-    }, 
+    },
 	];
 
 	return (
