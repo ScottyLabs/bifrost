@@ -5,7 +5,7 @@ export function RegisterButton() {
 
   const params = new URLSearchParams(location.search);
 
-  let registerLink = `https://docs.google.com/forms/d/1l_pvU08U1kjfUameWTHmxIB_Yrwe-SsOKuHosKv6XJE/edit`;
+  let registerLink = `https://register.tartanhacks.com/`;
   if (
     params.has("utm_source") &&
     params.has("utm_medium") &&
@@ -22,7 +22,7 @@ export function RegisterButton() {
     <div className="text-beige flex justify-center">
       <a href={registerLink} target="_blank" rel="noopener noreferrer">
         <div className="py-3 px-6 text-2xl font-thin bg-blue hover:bg-rippleBlue animate-[float_2s_ease-in-out_infinite] text-white rounded-md cursor-pointer">
-          Pre-register Now!
+          Register Now!
         </div>
       </a>
     </div>
