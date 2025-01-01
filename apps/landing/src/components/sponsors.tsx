@@ -13,6 +13,9 @@ export function Sponsors() {
         <img src="/sponsors/jane.svg" alt="jane" className="px-8" />
         <img src="/sponsors/sandia.svg" alt="sandia" className="px-8" />
         <img src="/sponsors/hrt.svg" alt="hrt" className="px-8" />
+        <img src="/sponsors/cylab.svg" alt="jane" className="px-8" />
+        <img src="/sponsors/storyprotocol.svg" alt="hrt" className="px-8" />
+        <img src="/sponsors/ripple.svg" alt="sandia" className="px-8" />
       </div>
     </section>
   );
