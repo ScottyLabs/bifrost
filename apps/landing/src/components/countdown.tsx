@@ -27,6 +27,6 @@ const renderer = ({ days, hours, minutes, seconds }: CountdownRenderProps) => {
 
 export function DeadlineCountdown() {
   return (
-      <Countdown date={Date.UTC(2025, 0, 4, 5)} renderer={renderer} />
+      <Countdown date={Date.UTC(2025, 0, 20, 5)} renderer={renderer} />
   );
 }

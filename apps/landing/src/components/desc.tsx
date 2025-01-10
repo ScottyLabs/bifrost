@@ -13,7 +13,7 @@ export function Desc() {
           <span className="uppercase font-basteleur">Tartanhacks </span>
           is the largest Hackathon in Pittsburgh! Organized by ScottyLabs, it’s a 24-hour in person hackathon where participants
           from all over the country create innovative projects.
-          Come on over to hack, connect with peers, and learn from our incredible speakers. This year, we are excited to offer a select number of travel reimbursements. The application deadline for travel reimbursement is in
+          Come on over to hack, connect with peers, and learn from our incredible speakers. The application deadline is in
         </p>
         <DeadlineCountdown />
         <RegisterButton />
