@@ -7,6 +7,7 @@ import { Speakers } from "../components/speakers";
 import { Prizes } from "../components/prizes";
 import { Sponsors } from "../components/sponsors";
 import { Faqs } from "../components/faqs";
+import { MLH } from "../components/mlh";
 
 export function App() {
   return (
@@ -19,6 +20,7 @@ export function App() {
       <Theme />
       <Sponsors />
       <Speakers />
+      <MLH />
       <Prizes />
       <Schedule />
       <Faqs />
