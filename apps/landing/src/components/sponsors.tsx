@@ -8,14 +8,15 @@ export function Sponsors() {
       <h1 className="mt-24 px-10 uppercase font-basteleur text-5xl md:text-8xl z-30">
         Sponsors
       </h1>
-      <div className="flex flex-wrap w-full justify-center items-center mt-16 space-y-12 z-30">
-        <img src="/sponsors/stripe.svg" alt="stripe" className="px-8" />
-        <img src="/sponsors/jane.svg" alt="jane" className="px-8" />
-        <img src="/sponsors/sandia.svg" alt="sandia" className="px-8" />
-        <img src="/sponsors/hrt.svg" alt="hrt" className="px-8" />
-        <img src="/sponsors/cylab.svg" alt="jane" className="px-8" />
-        <img src="/sponsors/storyprotocol.svg" alt="hrt" className="px-8" />
-        <img src="/sponsors/ripple.svg" alt="sandia" className="px-8" />
+      <img src="/sponsors/applovin.svg" alt="applovin" className="px-8 w-" />
+      <div className="flex flex-wrap w-full justify-center items-center space-y-12 z-30">
+        <img src="/sponsors/stripe.svg" alt="stripe" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/jane.svg" alt="jane" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/sandia.svg" alt="sandia" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/hrt.svg" alt="hrt" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/cylab.svg" alt="jane" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/storyprotocol.svg" alt="hrt" className="px-8 w-48 md:w-64" />
+        <img src="/sponsors/ripple.svg" alt="sandia" className="px-8 w-48 md:w-64" />
       </div>
     </section>
   );
