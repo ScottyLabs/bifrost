@@ -3,10 +3,11 @@ package com.bifrost.resource.model
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.util.*
+import com.bifrost.resource.model.Event
 
 @Entity
 @Table(name = "checkins")
-data class Checkin(
+class Checkin(
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID,

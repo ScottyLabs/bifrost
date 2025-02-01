@@ -12,7 +12,7 @@ import java.util.*
     Index(name = "idx_team_name", columnList = "name", unique = true)
   ]
 )
-data class Team(
+class Team(
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id", nullable = false, updatable = false)

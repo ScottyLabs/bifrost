@@ -5,7 +5,7 @@ import java.util.*
 
 @Entity
 @Table(name = "prizes")
-data class Prize(
+class Prize(
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID,
