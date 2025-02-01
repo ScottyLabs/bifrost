@@ -1,23 +1,43 @@
-node_modules/
-.nx/installation
-.nx/cache
-.nx/workspace-data
-Pulumi.dev.yaml
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-out
-dist
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-vite.config.*.timestamp*
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-.env
-.env.local
-.env.development
-.env.test
-.env.production
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
-.DS_Store
-
+### VS Code ###
 .vscode/
-.idea/
 
-*.tsbuildinfo
+### Kotlin ###
+.kotlin
+
+### Misc ###
+schema.sql
