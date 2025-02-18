@@ -5,7 +5,7 @@ import java.util.*
 
 @Entity
 @Table(name = "tracks")
-data class Track(
+class Track(
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID,
