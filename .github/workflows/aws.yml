@@ -35,7 +35,7 @@ env:
   ECR_REPOSITORY: bifrost-backend           # set this to your Amazon ECR repository name
   ECS_SERVICE: backend-service                 # set this to your Amazon ECS service name
   ECS_CLUSTER: bifrost-cluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: apps/backend/ecs-task-definition.json # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION: ecs-task-definition.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: backend           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
@@ -73,7 +73,6 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        cd apps/backend
         docker compose up --build
         docker exec bifrost-resource-app tree
         docker stop bifrost-resource-app

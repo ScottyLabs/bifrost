@@ -12,7 +12,7 @@ import java.util.*
 @Table(name = "applications")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "status", discriminatorType = DiscriminatorType.STRING)
-class Application(
+open class Application(
   @Id @GeneratedValue(strategy = GenerationType.UUID)
   val id: UUID = UUID.randomUUID(),
 
